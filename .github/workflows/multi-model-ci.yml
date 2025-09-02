@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Setup Coq
+        uses: coq-community/docker-coq-action@v1
+        with:
+          coq_version: '8.18'
+          ocaml_version: '4.14-flambda'
+          
       - name: Fix src/proofs permissions
         run: chmod -R u+w src/proofs
         
@@ -28,23 +34,18 @@ jobs:
         
       - name: Verify mathematical proofs
         run: |
-          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18 sh -c "
-            ls -la
-            coq_makefile -f _CoqProject -o Makefile
-            chmod 644 Makefile
-            ls -la Makefile
-            make
-            mkdir -p build
-            cp *.vo build/ 2>/dev/null || true
-          "
+          cd src/proofs
+          coq_makefile -f _CoqProject -o Makefile
+          make
+          mkdir -p build
+          cp *.vo build/ 2>/dev/null || true
             
       - name: Extract to OCaml
         run: |
-          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18 sh -c "
-            coqc provenance_extraction.v
-            mkdir -p build
-            cp *.ml *.mli build/ 2>/dev/null || true
-          "
+          cd src/proofs
+          coqc provenance_extraction.v
+          mkdir -p build
+          cp *.ml *.mli build/ 2>/dev/null || true
           
       - name: Upload proof artifacts
         uses: actions/upload-artifact@v4
