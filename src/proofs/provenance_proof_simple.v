@@ -216,15 +216,17 @@ Proof.
     rewrite <- H_eq.
     apply andb_true_iff.
     split.
-    + (* Has evidence *)
+    { (* Has evidence *)
       unfold has_evidence.
       destruct evidence_chain; [contradiction | reflexivity].
-    + (* Sufficient evidence *)
+    }
+    { (* Sufficient evidence *)
       unfold sufficient_evidence.
       rewrite <- H_eq.
       apply andb_true_iff.
       split.
-      * exact H_verified.
-      * apply Nat.leb_le.
+      - exact H_verified.
+      - apply Nat.leb_le.
         exact H_conf.
+    }
 Qed.
