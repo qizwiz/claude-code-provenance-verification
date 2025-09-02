@@ -117,17 +117,19 @@ Proof.
   - (* Non-empty case *)
     exists e.
     split.
-    + (* e is in the list *)
+    { (* e is in the list *)
       rewrite <- E.
       simpl.
       auto.
-    + (* e is verified *)
+    }
+    { (* e is verified *)
       rewrite <- E in H_all_verified.
       unfold all_verified in H_all_verified.
       simpl in H_all_verified.
       apply andb_true_iff in H_all_verified.
       destruct H_all_verified as [H_e_verified _].
       exact H_e_verified.
+    }
 Qed.
 
 (* DEMONSTRATION: Apply to conversation example *)
