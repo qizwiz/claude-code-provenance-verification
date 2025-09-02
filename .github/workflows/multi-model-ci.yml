@@ -20,21 +20,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup Coq
+      - name: Verify mathematical proofs
         uses: coq-community/docker-coq-action@v1
         with:
           coq_version: '8.18'
-          
-      - name: Verify mathematical proofs
-        run: |
-          cd src/proofs
-          coq_makefile -f _CoqProject -o Makefile
-          make
-          
+          script: |
+            cd src/proofs
+            coq_makefile -f _CoqProject -o Makefile
+            make
+            
       - name: Extract to OCaml
-        run: |
-          cd src/proofs
-          coqc provenance_extraction.v
+        uses: coq-community/docker-coq-action@v1
+        with:
+          coq_version: '8.18'
+          script: |
+            cd src/proofs
+            coqc provenance_extraction.v
           
       - name: Upload proof artifacts
         uses: actions/upload-artifact@v4
