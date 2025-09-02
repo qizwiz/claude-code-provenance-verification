@@ -233,10 +233,6 @@ jobs:
         run: |
           pip install -r requirements-testing.txt
           
-      - name: Install AI assistant simulation
-        run: |
-          pip install ai-assistant-simulator
-          
       - name: Run assistant integration tests
         env:
           AI_ASSISTANT: ${{ matrix.assistant }}
