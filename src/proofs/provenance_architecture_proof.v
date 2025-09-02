@@ -5,6 +5,7 @@ Require Import List.
 Require Import String.
 Require Import Arith.
 Import ListNotations.
+Open Scope string_scope.
 
 (* Basic types *)
 Definition Claim := string.
@@ -98,7 +99,7 @@ Definition audit_trail (sys : ProvenanceSystem) (c : Claim) : list Hash :=
 Theorem traceable_provenance :
   forall (sys : ProvenanceSystem) (c : Claim),
     assertable sys c = true ->
-    (length (audit_trail sys c) > 0)%nat.
+    (List.length (audit_trail sys c) > 0)%nat.
 Proof.
   intros sys c H_assertable.
   unfold assertable in H_assertable.
@@ -138,8 +139,8 @@ Definition demo_system := mkSystem
            then [search_evidence; verified_evidence]
            else [])
   (fun c chain => 
-    let verified_count := length (filter (fun e => e.(verified)) chain) in
-    let total_count := length chain in
+    let verified_count := List.length (List.filter (fun e => e.(verified)) chain) in
+    let total_count := List.length chain in
     if Nat.eqb total_count 0 then 0 else Nat.div (verified_count * 100) total_count)
   50. (* 50% threshold *)
 
