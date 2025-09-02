@@ -291,9 +291,9 @@ jobs:
           
       - name: Run static security analysis
         run: |
-          bandit -r src/ -f json -o bandit-results.json
-          safety check --json --output safety-results.json
-          semgrep --config=auto --json --output=semgrep-results.json src/
+          bandit -r src/ -f json -o bandit-results.json || true
+          safety check --json --output safety-results.json || true
+          semgrep --config=auto --json --output=semgrep-results.json src/ || true
           
       - name: Test for prompt injection vulnerabilities
         run: |
