@@ -27,33 +27,25 @@ jobs:
         run: rm -f src/proofs/Makefile
         
       - name: Verify mathematical proofs
-        uses: coq-community/docker-coq-action@v1
-        with:
-          coq_version: '8.17'
-          script: |
-            # Work in /tmp directory to avoid permission issues
-            mkdir -p /tmp/proofs
-            cp -r src/proofs/* /tmp/proofs/
-            cd /tmp/proofs
+        run: |
+          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18.0 sh -c "
             coq_makefile -f _CoqProject -o Makefile
             make
-            # Copy results back to workspace
-            mkdir -p $GITHUB_WORKSPACE/src/proofs/build
-            cp -r *.vo $GITHUB_WORKSPACE/src/proofs/build/ 2>/dev/null || true
+          "
+          mkdir -p src/proofs/build
+          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18.0 sh -c "
+            cp *.vo build/ 2>/dev/null || true
+          "
             
       - name: Extract to OCaml
-        uses: coq-community/docker-coq-action@v1
-        with:
-          coq_version: '8.17'
-          script: |
-            # Work in /tmp directory to avoid permission issues
-            mkdir -p /tmp/proofs
-            cp -r src/proofs/* /tmp/proofs/
-            cd /tmp/proofs
+        run: |
+          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18.0 sh -c "
             coqc provenance_extraction.v
-            # Copy results back to workspace
-            mkdir -p $GITHUB_WORKSPACE/src/proofs/build
-            cp -r *.ml *.mli $GITHUB_WORKSPACE/src/proofs/build/ 2>/dev/null || true
+          "
+          mkdir -p src/proofs/build
+          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18.0 sh -c "
+            cp *.ml *.mli build/ 2>/dev/null || true
+          "
           
       - name: Upload proof artifacts
         uses: actions/upload-artifact@v4
