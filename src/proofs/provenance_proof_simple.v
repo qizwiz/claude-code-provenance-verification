@@ -109,13 +109,14 @@ Proof.
   - discriminate H_has_evidence.
   - exists e.
     split.
-    { rewrite <- E. simpl. left. reflexivity. }
+    { rewrite <- E. auto. }
     { assert (H_chain: evidence_db sys c = e :: rest) by exact E.
       rewrite H_chain in H_all_verified.
       unfold all_verified in H_all_verified.
       simpl in H_all_verified.
       apply andb_true_iff in H_all_verified.
-      exact (proj1 H_all_verified). }
+      destruct H_all_verified as [H_e_verified _].
+      exact H_e_verified. }
 Qed.
 
 (* DEMONSTRATION: Apply to conversation example *)
