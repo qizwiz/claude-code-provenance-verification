@@ -120,7 +120,7 @@ Qed.
 (* DEMONSTRATION: Apply to conversation example *)
 
 (* Example evidence *)
-Definition search_result := mkEvidence 1 false.  (* Unverified search result *)
+Definition search_result := mkEvidence 1 true.   (* Verified search result *)
 Definition github_check := mkEvidence 2 true.    (* Verified GitHub existence *)
 
 (* Example system with 50% confidence threshold *)
@@ -142,8 +142,9 @@ Proof.
 Qed.
 
 (* Proof that unverified-only claims are not assertable *)
+Definition unverified_result := mkEvidence 1 false. (* Unverified evidence *)
 Definition bad_system := mkSystem
-  (fun c => if Nat.eqb c 42 then [search_result] else [])
+  (fun c => if Nat.eqb c 42 then [unverified_result] else [])
   50.
 
 Example demo_not_assertable :
