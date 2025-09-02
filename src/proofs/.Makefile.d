@@ -1,0 +1,12 @@
+provenance_minimal.vo provenance_minimal.glob provenance_minimal.v.beautified provenance_minimal.required_vo: provenance_minimal.v 
+provenance_minimal.vio: provenance_minimal.v 
+provenance_minimal.vos provenance_minimal.vok provenance_minimal.required_vos: provenance_minimal.v 
+provenance_proof_simple.vo provenance_proof_simple.glob provenance_proof_simple.v.beautified provenance_proof_simple.required_vo: provenance_proof_simple.v 
+provenance_proof_simple.vio: provenance_proof_simple.v 
+provenance_proof_simple.vos provenance_proof_simple.vok provenance_proof_simple.required_vos: provenance_proof_simple.v 
+provenance_architecture_proof.vo provenance_architecture_proof.glob provenance_architecture_proof.v.beautified provenance_architecture_proof.required_vo: provenance_architecture_proof.v 
+provenance_architecture_proof.vio: provenance_architecture_proof.v 
+provenance_architecture_proof.vos provenance_architecture_proof.vok provenance_architecture_proof.required_vos: provenance_architecture_proof.v 
+provenance_extraction.vo provenance_extraction.glob provenance_extraction.v.beautified provenance_extraction.required_vo: provenance_extraction.v 
+provenance_extraction.vio: provenance_extraction.v 
+provenance_extraction.vos provenance_extraction.vok provenance_extraction.required_vos: provenance_extraction.v 

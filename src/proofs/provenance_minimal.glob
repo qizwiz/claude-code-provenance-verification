@@ -1,0 +1,136 @@
+DIGEST 76477d6c56024b5662edbde391ee0f90
+FProvenanceVerification.provenance_minimal
+R60:63 Stdlib.Bool.Bool <> <> lib
+def 101:105 <> Claim
+R110:113 Corelib.Init.Datatypes <> bool ind
+def 127:134 <> Evidence
+R139:142 Corelib.Init.Datatypes <> bool ind
+rec 153:168 <> ProvenanceSystem
+proj 177:188 <> has_evidence
+proj 209:225 <> evidence_verified
+R197:200 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R192:196 ProvenanceVerification.provenance_minimal <> Claim def
+R201:204 Corelib.Init.Datatypes <> bool ind
+R234:237 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R229:233 ProvenanceVerification.provenance_minimal <> Claim def
+R238:241 Corelib.Init.Datatypes <> bool ind
+def 331:340 <> assertable
+R349:364 ProvenanceVerification.provenance_minimal <> ProvenanceSystem rec
+binder 343:345 <> sys:4
+R372:376 ProvenanceVerification.provenance_minimal <> Claim def
+binder 368:368 <> c:5
+R381:384 Corelib.Init.Datatypes <> bool ind
+R391:394 Corelib.Init.Datatypes <> andb def
+R418:434 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+R436:438 ProvenanceVerification.provenance_minimal <> sys:4 var
+R440:440 ProvenanceVerification.provenance_minimal <> c:5 var
+R397:408 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R410:412 ProvenanceVerification.provenance_minimal <> sys:4 var
+R414:414 ProvenanceVerification.provenance_minimal <> c:5 var
+prf 489:500 <> claim_safety
+R520:535 ProvenanceVerification.provenance_minimal <> ProvenanceSystem rec
+binder 514:516 <> sys:6
+R543:547 ProvenanceVerification.provenance_minimal <> Claim def
+binder 539:539 <> c:7
+R578:585 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R571:573 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R555:564 ProvenanceVerification.provenance_minimal <> assertable def
+R566:568 ProvenanceVerification.provenance_minimal <> sys:6 var
+R570:570 ProvenanceVerification.provenance_minimal <> c:7 var
+R574:577 Corelib.Init.Datatypes <> true constr
+R609:611 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R586:602 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+R604:606 ProvenanceVerification.provenance_minimal <> sys:6 var
+R608:608 ProvenanceVerification.provenance_minimal <> c:7 var
+R612:615 Corelib.Init.Datatypes <> true constr
+R663:672 ProvenanceVerification.provenance_minimal <> assertable def
+R699:711 Stdlib.Bool.Bool <> andb_true_iff thm
+R699:711 Stdlib.Bool.Bool <> andb_true_iff thm
+prf 865:888 <> no_unverified_assertions
+R908:923 ProvenanceVerification.provenance_minimal <> ProvenanceSystem rec
+binder 902:904 <> sys:8
+R931:935 ProvenanceVerification.provenance_minimal <> Claim def
+binder 927:927 <> c:9
+R974:981 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R966:968 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R943:959 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+R961:963 ProvenanceVerification.provenance_minimal <> sys:8 var
+R965:965 ProvenanceVerification.provenance_minimal <> c:9 var
+R969:973 Corelib.Init.Datatypes <> false constr
+R998:1000 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R982:991 ProvenanceVerification.provenance_minimal <> assertable def
+R993:995 ProvenanceVerification.provenance_minimal <> sys:8 var
+R997:997 ProvenanceVerification.provenance_minimal <> c:9 var
+R1001:1005 Corelib.Init.Datatypes <> false constr
+R1053:1062 ProvenanceVerification.provenance_minimal <> assertable def
+R1101:1112 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R1101:1112 ProvenanceVerification.provenance_minimal <> has_evidence proj
+def 1205:1223 <> conversation_system
+R1233:1244 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R1233:1244 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R1233:1244 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R1302:1318 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+R1302:1318 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+binder 1253:1253 <> c:10
+R1258:1258 ProvenanceVerification.provenance_minimal <> c:10 var
+binder 1327:1327 <> c:11
+R1332:1335 Corelib.Init.Datatypes <> negb def
+R1337:1337 ProvenanceVerification.provenance_minimal <> c:11 var
+def 1395:1403 <> mcp_claim
+R1408:1411 Corelib.Init.Datatypes <> true constr
+def 1505:1522 <> unverified_blocked
+R1568:1570 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1528:1537 ProvenanceVerification.provenance_minimal <> assertable def
+R1539:1557 ProvenanceVerification.provenance_minimal <> conversation_system def
+R1559:1567 ProvenanceVerification.provenance_minimal <> mcp_claim def
+R1571:1575 Corelib.Init.Datatypes <> false constr
+R1594:1603 ProvenanceVerification.provenance_minimal <> assertable def
+def 1690:1704 <> verified_system
+R1714:1725 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R1714:1725 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R1714:1725 ProvenanceVerification.provenance_minimal <> has_evidence proj
+R1744:1760 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+R1744:1760 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+binder 1734:1734 <> c:12
+R1739:1739 ProvenanceVerification.provenance_minimal <> c:12 var
+binder 1769:1769 <> c:13
+R1774:1774 ProvenanceVerification.provenance_minimal <> c:13 var
+def 1814:1829 <> verified_allowed
+R1871:1873 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1835:1844 ProvenanceVerification.provenance_minimal <> assertable def
+R1846:1860 ProvenanceVerification.provenance_minimal <> verified_system def
+R1862:1870 ProvenanceVerification.provenance_minimal <> mcp_claim def
+R1874:1877 Corelib.Init.Datatypes <> true constr
+R1896:1905 ProvenanceVerification.provenance_minimal <> assertable def
+prf 2016:2036 <> prevents_false_claims
+R2056:2071 ProvenanceVerification.provenance_minimal <> ProvenanceSystem rec
+binder 2050:2052 <> sys:14
+R2079:2079 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2147:2156 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2226:2226 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2087:2087 <> c:15
+R2113:2116 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2106:2108 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2090:2099 ProvenanceVerification.provenance_minimal <> assertable def
+R2101:2103 ProvenanceVerification.provenance_minimal <> sys:14 var
+R2105:2105 ProvenanceVerification.provenance_minimal <> c:15 var
+R2109:2112 Corelib.Init.Datatypes <> true constr
+R2140:2142 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2117:2133 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+R2135:2137 ProvenanceVerification.provenance_minimal <> sys:14 var
+R2139:2139 ProvenanceVerification.provenance_minimal <> c:15 var
+R2143:2146 Corelib.Init.Datatypes <> true constr
+binder 2164:2164 <> c:16
+R2198:2201 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2190:2192 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2167:2183 ProvenanceVerification.provenance_minimal <> evidence_verified proj
+R2185:2187 ProvenanceVerification.provenance_minimal <> sys:14 var
+R2189:2189 ProvenanceVerification.provenance_minimal <> c:16 var
+R2193:2197 Corelib.Init.Datatypes <> false constr
+R2218:2220 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2202:2211 ProvenanceVerification.provenance_minimal <> assertable def
+R2213:2215 ProvenanceVerification.provenance_minimal <> sys:14 var
+R2217:2217 ProvenanceVerification.provenance_minimal <> c:16 var
+R2221:2225 Corelib.Init.Datatypes <> false constr
+R2286:2295 ProvenanceVerification.provenance_minimal <> assertable def
+R2286:2295 ProvenanceVerification.provenance_minimal <> assertable def
