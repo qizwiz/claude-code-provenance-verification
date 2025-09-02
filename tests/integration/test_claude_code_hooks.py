@@ -1,6 +1,7 @@
 """Test Claude Code hook integration."""
 
 import sys
+import os
 import subprocess
 
 
@@ -8,11 +9,18 @@ def test_hook_installation():
     """Test that the hook is properly installed."""
     print("Testing Claude Code hook installation...")
     
+    # Get path relative to repository root
+    hook_path = os.path.join(
+        os.path.dirname(__file__), 
+        '../../src/hooks/response_claim_validator_hook.py'
+    )
+    hook_path = os.path.abspath(hook_path)
+    
     # Basic test that hook script exists and is executable
     try:
         result = subprocess.run([
             'python3', 
-            '/Users/jonathanhill/src/claude-code/response_claim_validator_hook.py', 
+            hook_path, 
             '--help'
         ], capture_output=True, text=True, timeout=10)
         
