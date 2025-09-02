@@ -98,40 +98,24 @@ Theorem evidence_requirement :
       In e (evidence_db sys c) /\ verified e = true.
 Proof.
   intros sys c H_assertable.
-  
-  (* Extract that we have evidence *)
   unfold assertable in H_assertable.
   apply andb_true_iff in H_assertable.
   destruct H_assertable as [H_has_evidence H_sufficient].
-  
-  (* Extract that all evidence is verified *)
   unfold sufficient_evidence in H_sufficient.
   apply andb_true_iff in H_sufficient.
   destruct H_sufficient as [H_all_verified _].
-  
-  (* Since we have evidence and it's all verified, exists one *)
   unfold has_evidence in H_has_evidence.
   destruct (evidence_db sys c) as [| e rest] eqn:E.
-  { (* Empty case contradicts has_evidence *)
-    discriminate H_has_evidence.
-  }
-  { (* Non-empty case *)
-    exists e.
+  - discriminate H_has_evidence.
+  - exists e.
     split.
-    { (* e is in the list *)
-      rewrite <- E.
-      simpl.
-      auto.
-    }
-    { (* e is verified *)
-      rewrite <- E in H_all_verified.
+    + rewrite <- E; simpl; auto.
+    + assert (H_chain: evidence_db sys c = e :: rest) by exact E.
+      rewrite H_chain in H_all_verified.
       unfold all_verified in H_all_verified.
       simpl in H_all_verified.
       apply andb_true_iff in H_all_verified.
-      destruct H_all_verified as [H_e_verified _].
-      exact H_e_verified.
-    }
-  }
+      exact (proj1 H_all_verified).
 Qed.
 
 (* DEMONSTRATION: Apply to conversation example *)
