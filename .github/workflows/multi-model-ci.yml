@@ -28,7 +28,7 @@ jobs:
         
       - name: Verify mathematical proofs
         run: |
-          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18.0 sh -c "
+          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18 sh -c "
             ls -la
             coq_makefile -f _CoqProject -o Makefile
             chmod 644 Makefile
@@ -40,7 +40,7 @@ jobs:
             
       - name: Extract to OCaml
         run: |
-          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18.0 sh -c "
+          docker run --rm -v ${{ github.workspace }}/src/proofs:/workspace -w /workspace coqorg/coq:8.18 sh -c "
             coqc provenance_extraction.v
             mkdir -p build
             cp *.ml *.mli build/ 2>/dev/null || true
