@@ -20,7 +20,7 @@ coverage>=7.3.0
 factory-boy>=3.3.0
 
 # Testing frameworks
-promptfoo>=0.80.0
+promptfoo==0.1.0
 deepeval>=1.1.0
 evidently>=0.4.0
 
