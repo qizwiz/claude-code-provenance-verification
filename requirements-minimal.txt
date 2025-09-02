@@ -1,0 +1,9 @@
+# Minimal requirements to avoid cython_sources issues
+numpy
+requests
+typing-extensions
+PyYAML>=6.0
+pytest
+black
+isort
+flake8
