@@ -109,10 +109,8 @@ Proof.
   - discriminate H_has_evidence.
   - exists e.
     split.
-    { rewrite <- E. auto. }
-    { assert (H_chain: evidence_db sys c = e :: rest) by exact E.
-      rewrite H_chain in H_all_verified.
-      unfold all_verified in H_all_verified.
+    { subst. apply in_eq. }
+    { unfold all_verified in H_all_verified.
       simpl in H_all_verified.
       apply andb_true_iff in H_all_verified.
       destruct H_all_verified as [H_e_verified _].
