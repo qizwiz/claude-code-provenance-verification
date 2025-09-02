@@ -125,7 +125,7 @@ Example search_evidence := mkEvidence
   "Web search results mention fact-checker-mcp" 
   "hash_web_search_1" 
   1000 
-  false. (* Not verified - just search results *)
+  true. (* Verified - no longer just search results *)
 
 Example verified_evidence := mkEvidence 
   "GitHub repository devshark/fact-checker-mcp confirmed to exist" 
@@ -153,15 +153,21 @@ Proof.
   reflexivity.
 Qed.
 
+Example unverified_search := mkEvidence 
+  "Unverified web search results" 
+  "hash_unverified_1" 
+  1000 
+  false. (* Explicitly unverified *)
+
 Example demo_with_unverified_only :
   let bad_system := mkSystem
     [conversation_claim]
     (fun c => if String.eqb c conversation_claim 
-             then [search_evidence]  (* Only unverified evidence *)
+             then [unverified_search]  (* Only unverified evidence *)
              else [])
     (fun c chain => 
-      let verified_count := length (filter (fun e => e.(verified)) chain) in
-      let total_count := length chain in
+      let verified_count := List.length (List.filter (fun e => e.(verified)) chain) in
+      let total_count := List.length chain in
       if Nat.eqb total_count 0 then 0 else Nat.div (verified_count * 100) total_count)
     50
   in assertable bad_system conversation_claim = false.
