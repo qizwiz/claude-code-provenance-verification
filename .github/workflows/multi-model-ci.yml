@@ -20,6 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Fix src/proofs permissions
+        run: chmod -R u+w src/proofs
+        
       - name: Verify mathematical proofs
         uses: coq-community/docker-coq-action@v1
         with:
