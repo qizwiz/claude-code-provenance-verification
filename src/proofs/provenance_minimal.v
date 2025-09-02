@@ -1,6 +1,6 @@
 (* Minimal Provenance Architecture Proof *)
 
-From Stdlib Require Import Bool.
+Require Import Bool.
 
 (* Core definitions *)
 Definition Claim := bool.

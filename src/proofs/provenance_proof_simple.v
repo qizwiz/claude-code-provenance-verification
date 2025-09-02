@@ -1,6 +1,6 @@
 (* Simplified Provenance Architecture Proof *)
 
-From Stdlib Require Import Bool List Arith.
+Require Import Bool List Arith.
 Import ListNotations.
 
 (* Core types *)

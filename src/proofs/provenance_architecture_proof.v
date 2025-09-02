@@ -1,9 +1,9 @@
 (* Formal Proof of Provenance Architecture for AI Claim Verification *)
 
-From Stdlib Require Import Bool.
-From Stdlib Require Import List.
-From Stdlib Require Import String.
-From Stdlib Require Import Arith.
+Require Import Bool.
+Require Import List.
+Require Import String.
+Require Import Arith.
 Import ListNotations.
 
 (* Basic types *)
