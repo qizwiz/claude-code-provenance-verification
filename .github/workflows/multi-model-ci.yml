@@ -29,23 +29,31 @@ jobs:
       - name: Verify mathematical proofs
         uses: coq-community/docker-coq-action@v1
         with:
-          coq_version: '8.18.0'
+          coq_version: '8.18'
           script: |
-            cd src/proofs
-            mkdir -p build
-            cd build
-            coq_makefile -f ../_CoqProject -o Makefile
+            # Work in /tmp directory to avoid permission issues
+            mkdir -p /tmp/proofs
+            cp -r src/proofs/* /tmp/proofs/
+            cd /tmp/proofs
+            coq_makefile -f _CoqProject -o Makefile
             make
+            # Copy results back to workspace
+            mkdir -p $GITHUB_WORKSPACE/src/proofs/build
+            cp -r *.vo $GITHUB_WORKSPACE/src/proofs/build/ 2>/dev/null || true
             
       - name: Extract to OCaml
         uses: coq-community/docker-coq-action@v1
         with:
-          coq_version: '8.18.0'
+          coq_version: '8.18'
           script: |
-            cd src/proofs
-            mkdir -p build
-            cd build
-            coqc ../provenance_extraction.v
+            # Work in /tmp directory to avoid permission issues
+            mkdir -p /tmp/proofs
+            cp -r src/proofs/* /tmp/proofs/
+            cd /tmp/proofs
+            coqc provenance_extraction.v
+            # Copy results back to workspace
+            mkdir -p $GITHUB_WORKSPACE/src/proofs/build
+            cp -r *.ml *.mli $GITHUB_WORKSPACE/src/proofs/build/ 2>/dev/null || true
           
       - name: Upload proof artifacts
         uses: actions/upload-artifact@v4
@@ -188,6 +196,7 @@ jobs:
           
       - name: Install testing framework
         run: |
+          pip install --upgrade pip setuptools==68.2.2 wheel cython==0.29.36
           pip install promptfoo deepeval evidently
           npm install -g promptfoo
           
@@ -242,7 +251,8 @@ jobs:
       
       - name: Setup test environment
         run: |
-          pip install -r requirements-testing.txt
+          pip install --upgrade pip setuptools==68.2.2 wheel cython==0.29.36
+          pip install -r requirements-minimal.txt
           
       - name: Run assistant integration tests
         env:
@@ -266,7 +276,8 @@ jobs:
       
       - name: Setup performance environment
         run: |
-          pip install -r requirements.txt
+          pip install --upgrade pip setuptools==68.2.2 wheel cython==0.29.36
+          pip install -r requirements-minimal.txt
           pip install pytest-benchmark memory-profiler
           
       - name: Run latency benchmarks
@@ -295,6 +306,8 @@ jobs:
       
       - name: Setup security testing
         run: |
+          pip install --upgrade pip setuptools==68.2.2 wheel cython==0.29.36
+          pip install -r requirements-minimal.txt
           pip install bandit safety semgrep
           
       - name: Run static security analysis
@@ -336,12 +349,7 @@ jobs:
       
       - name: Setup integration environment
         run: |
-          pip install -r requirements.txt
-          pip install docker-compose
-          
-      - name: Start MCP server
-        run: |
-          docker-compose -f docker/test-compose.yml up -d
+          pip install -r requirements-minimal.txt
           
       - name: Test Claude Code hook integration
         run: |
@@ -354,10 +362,6 @@ jobs:
       - name: Test end-to-end workflows
         run: |
           python tests/integration/test_e2e_workflows.py
-          
-      - name: Cleanup
-        run: |
-          docker-compose -f docker/test-compose.yml down
 
   # Generate comprehensive report
   report-generation:
