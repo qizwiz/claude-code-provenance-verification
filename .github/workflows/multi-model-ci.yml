@@ -69,15 +69,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
           
       - name: Upgrade build tools
-        run: |
-          pip install --upgrade pip setuptools wheel
-          pip install --no-build-isolation setuptools-scm
+        run: pip install --upgrade pip setuptools==68.2.2 wheel cython==0.29.36
         
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          # Install dev dependencies with build isolation disabled for problematic packages
-          pip install --no-build-isolation -r requirements-dev.txt || pip install pytest black isort flake8
+          pip install -r requirements-dev.txt
           
       - name: Run unit tests
         run: |
