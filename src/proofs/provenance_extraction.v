@@ -1,8 +1,8 @@
 (* Extractable Provenance System *)
 
-From Stdlib Require Import Bool String List.
+Require Import Bool String List.
 Open Scope string_scope.
-From Stdlib Require Extraction.
+Require Extraction.
 Import ListNotations.
 
 (* Core types for extraction *)

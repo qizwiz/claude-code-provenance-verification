@@ -1,4 +1,4 @@
--R . ProvenanceVerification
+-Q . ProvenanceVerification
 
 provenance_minimal.v
 provenance_proof_simple.v
