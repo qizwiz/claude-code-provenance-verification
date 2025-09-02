@@ -32,8 +32,9 @@ jobs:
           coq_version: '8.18.0'
           script: |
             cd src/proofs
-            chmod u+w . || true
-            coq_makefile -f _CoqProject -o Makefile
+            mkdir -p build
+            cd build
+            coq_makefile -f ../_CoqProject -o Makefile
             make
             
       - name: Extract to OCaml
@@ -42,14 +43,15 @@ jobs:
           coq_version: '8.18.0'
           script: |
             cd src/proofs
-            chmod u+w . || true
-            coqc provenance_extraction.v
+            mkdir -p build
+            cd build
+            coqc ../provenance_extraction.v
           
       - name: Upload proof artifacts
         uses: actions/upload-artifact@v4
         with:
           name: coq-proofs
-          path: src/proofs/*.vo
+          path: src/proofs/build/*.vo
 
   # Core system testing
   core-tests:
