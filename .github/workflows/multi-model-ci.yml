@@ -174,7 +174,7 @@ jobs:
           
       - name: Install testing framework
         run: |
-          pip install promptfoo deepeval evidently-ai
+          pip install promptfoo deepeval evidently
           npm install -g promptfoo
           
       - name: Configure model access
