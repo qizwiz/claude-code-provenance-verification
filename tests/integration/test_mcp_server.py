@@ -19,7 +19,7 @@ def test_mcp_server_basic():
     try:
         with open(server_path, 'r') as f:
             content = f.read()
-            if 'class ProvenanceServer' in content:
+            if 'class ProvenanceVerifier' in content:
                 print("✅ MCP server class found")
                 return True
             else:
