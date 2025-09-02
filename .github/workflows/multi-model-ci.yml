@@ -1,0 +1,407 @@
+name: Multi-Model Provenance Verification CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+
+jobs:
+  # Formal proof verification
+  coq-proofs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Coq
+        uses: coq-community/docker-coq-action@v1
+        with:
+          coq_version: '8.18'
+          
+      - name: Verify mathematical proofs
+        run: |
+          cd src/proofs
+          coq_makefile -f _CoqProject -o Makefile
+          make
+          
+      - name: Extract to OCaml
+        run: |
+          cd src/proofs
+          coqc provenance_extraction.v
+          
+      - name: Upload proof artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coq-proofs
+          path: src/proofs/*.vo
+
+  # Core system testing
+  core-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          
+      - name: Run unit tests
+        run: |
+          pytest tests/unit/ -v --cov=src --cov-report=xml
+          
+      - name: Run integration tests
+        run: |
+          pytest tests/integration/ -v
+          
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+
+  # Multi-model LLM testing
+  llm-model-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        model_provider:
+          - openai
+          - anthropic
+          - google
+          - qwen
+          - deepseek
+        model_name:
+          - gpt-4o
+          - gpt-4o-mini
+          - claude-3-5-sonnet-20241022
+          - claude-3-5-haiku-20241022
+          - gemini-1.5-pro
+          - gemini-1.5-flash
+          - qwen2.5-coder-32b
+          - deepseek-coder-v2
+        exclude:
+          # Only test valid model/provider combinations
+          - model_provider: openai
+            model_name: claude-3-5-sonnet-20241022
+          - model_provider: openai
+            model_name: claude-3-5-haiku-20241022
+          - model_provider: openai
+            model_name: gemini-1.5-pro
+          - model_provider: openai
+            model_name: gemini-1.5-flash
+          - model_provider: openai
+            model_name: qwen2.5-coder-32b
+          - model_provider: openai
+            model_name: deepseek-coder-v2
+          - model_provider: anthropic
+            model_name: gpt-4o
+          - model_provider: anthropic
+            model_name: gpt-4o-mini
+          - model_provider: anthropic
+            model_name: gemini-1.5-pro
+          - model_provider: anthropic
+            model_name: gemini-1.5-flash
+          - model_provider: anthropic
+            model_name: qwen2.5-coder-32b
+          - model_provider: anthropic
+            model_name: deepseek-coder-v2
+          - model_provider: google
+            model_name: gpt-4o
+          - model_provider: google
+            model_name: gpt-4o-mini
+          - model_provider: google
+            model_name: claude-3-5-sonnet-20241022
+          - model_provider: google
+            model_name: claude-3-5-haiku-20241022
+          - model_provider: google
+            model_name: qwen2.5-coder-32b
+          - model_provider: google
+            model_name: deepseek-coder-v2
+          - model_provider: qwen
+            model_name: gpt-4o
+          - model_provider: qwen
+            model_name: gpt-4o-mini
+          - model_provider: qwen
+            model_name: claude-3-5-sonnet-20241022
+          - model_provider: qwen
+            model_name: claude-3-5-haiku-20241022
+          - model_provider: qwen
+            model_name: gemini-1.5-pro
+          - model_provider: qwen
+            model_name: gemini-1.5-flash
+          - model_provider: qwen
+            model_name: deepseek-coder-v2
+          - model_provider: deepseek
+            model_name: gpt-4o
+          - model_provider: deepseek
+            model_name: gpt-4o-mini
+          - model_provider: deepseek
+            model_name: claude-3-5-sonnet-20241022
+          - model_provider: deepseek
+            model_name: claude-3-5-haiku-20241022
+          - model_provider: deepseek
+            model_name: gemini-1.5-pro
+          - model_provider: deepseek
+            model_name: gemini-1.5-flash
+          - model_provider: deepseek
+            model_name: qwen2.5-coder-32b
+            
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: Install testing framework
+        run: |
+          pip install promptfoo deepeval evidently-ai
+          npm install -g promptfoo
+          
+      - name: Configure model access
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          echo "Testing with ${{ matrix.model_provider }}/${{ matrix.model_name }}"
+          
+      - name: Run claim detection tests
+        run: |
+          python tests/model_testing/test_claim_detection.py \
+            --model-provider ${{ matrix.model_provider }} \
+            --model-name ${{ matrix.model_name }}
+            
+      - name: Run evidence verification tests  
+        run: |
+          python tests/model_testing/test_evidence_verification.py \
+            --model-provider ${{ matrix.model_provider }} \
+            --model-name ${{ matrix.model_name }}
+            
+      - name: Upload model test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-results-${{ matrix.model_provider }}-${{ matrix.model_name }}
+          path: test-results/
+
+  # AI Coding Assistant Integration Tests
+  ai-assistant-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        assistant:
+          - cursor
+          - claude-code
+          - codeium 
+          - copilot
+          - windsurf
+        test_scenario:
+          - basic_claim_detection
+          - complex_claim_patterns
+          - false_positive_handling
+          - performance_benchmarks
+          
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup test environment
+        run: |
+          pip install -r requirements-testing.txt
+          
+      - name: Install AI assistant simulation
+        run: |
+          pip install ai-assistant-simulator
+          
+      - name: Run assistant integration tests
+        env:
+          AI_ASSISTANT: ${{ matrix.assistant }}
+          TEST_SCENARIO: ${{ matrix.test_scenario }}
+        run: |
+          python tests/assistant_integration/test_${{ matrix.test_scenario }}.py \
+            --assistant ${{ matrix.assistant }}
+            
+      - name: Generate compatibility report
+        run: |
+          python scripts/generate_compatibility_report.py \
+            --assistant ${{ matrix.assistant }} \
+            --scenario ${{ matrix.test_scenario }}
+
+  # Performance benchmarking
+  performance-tests:
+    runs-on: ubuntu-latest-xl  # Larger runner for performance testing
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup performance environment
+        run: |
+          pip install -r requirements.txt
+          pip install pytest-benchmark memory-profiler
+          
+      - name: Run latency benchmarks
+        run: |
+          python tests/performance/test_latency.py --benchmark-json=latency-results.json
+          
+      - name: Run memory benchmarks  
+        run: |
+          python tests/performance/test_memory.py --benchmark-json=memory-results.json
+          
+      - name: Run concurrency tests
+        run: |
+          python tests/performance/test_concurrency.py --max-workers=100
+          
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-benchmarks
+          path: "*-results.json"
+
+  # Security and safety testing
+  security-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup security testing
+        run: |
+          pip install bandit safety semgrep
+          
+      - name: Run static security analysis
+        run: |
+          bandit -r src/ -f json -o bandit-results.json
+          safety check --json --output safety-results.json
+          semgrep --config=auto --json --output=semgrep-results.json src/
+          
+      - name: Test for prompt injection vulnerabilities
+        run: |
+          python tests/security/test_prompt_injection.py
+          
+      - name: Test evidence tampering protection
+        run: |
+          python tests/security/test_evidence_tampering.py
+          
+      - name: Upload security results
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-results
+          path: "*-results.json"
+
+  # Real-world integration testing
+  integration-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup integration environment
+        run: |
+          pip install -r requirements.txt
+          pip install docker-compose
+          
+      - name: Start MCP server
+        run: |
+          docker-compose -f docker/test-compose.yml up -d
+          
+      - name: Test Claude Code hook integration
+        run: |
+          python tests/integration/test_claude_code_hooks.py
+          
+      - name: Test MCP server integration
+        run: |
+          python tests/integration/test_mcp_server.py
+          
+      - name: Test end-to-end workflows
+        run: |
+          python tests/integration/test_e2e_workflows.py
+          
+      - name: Cleanup
+        run: |
+          docker-compose -f docker/test-compose.yml down
+
+  # Generate comprehensive report
+  report-generation:
+    needs: [coq-proofs, core-tests, llm-model-matrix, ai-assistant-matrix, performance-tests, security-tests, integration-tests]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+          
+      - name: Generate comprehensive CI report
+        run: |
+          python scripts/generate_ci_report.py \
+            --artifacts-dir artifacts/ \
+            --output-dir reports/
+            
+      - name: Upload final report
+        uses: actions/upload-artifact@v4
+        with:
+          name: comprehensive-ci-report
+          path: reports/
+          
+      - name: Comment on PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('reports/summary.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+  # Deploy to staging on main branch
+  deploy-staging:
+    needs: [coq-proofs, core-tests, llm-model-matrix, ai-assistant-matrix, performance-tests, security-tests, integration-tests]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to staging environment
+        env:
+          DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
+        run: |
+          python scripts/deploy_staging.py
+          
+      - name: Run smoke tests on staging
+        run: |
+          python tests/smoke/test_staging_deployment.py
