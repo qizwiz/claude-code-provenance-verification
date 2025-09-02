@@ -112,9 +112,10 @@ Proof.
   (* Since we have evidence and it's all verified, exists one *)
   unfold has_evidence in H_has_evidence.
   destruct (evidence_db sys c) as [| e rest] eqn:E.
-  - (* Empty case contradicts has_evidence *)
+  { (* Empty case contradicts has_evidence *)
     discriminate H_has_evidence.
-  - (* Non-empty case *)
+  }
+  { (* Non-empty case *)
     exists e.
     split.
     { (* e is in the list *)
@@ -130,6 +131,7 @@ Proof.
       destruct H_all_verified as [H_e_verified _].
       exact H_e_verified.
     }
+  }
 Qed.
 
 (* DEMONSTRATION: Apply to conversation example *)
