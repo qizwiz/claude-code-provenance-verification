@@ -23,6 +23,9 @@ jobs:
       - name: Fix src/proofs permissions
         run: chmod -R u+w src/proofs
         
+      - name: Remove existing Makefile if present
+        run: rm -f src/proofs/Makefile
+        
       - name: Verify mathematical proofs
         uses: coq-community/docker-coq-action@v1
         with:

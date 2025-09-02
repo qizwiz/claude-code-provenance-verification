@@ -21,8 +21,8 @@ factory-boy>=3.3.0
 
 # Testing frameworks
 promptfoo==0.1.0
-deepeval>=1.1.0
-evidently>=0.4.0
+deepeval>=1.1.0,<2.0.0
+evidently>=0.4.0,<1.0.0
 
 # Documentation
 sphinx>=7.1.0
@@ -41,9 +41,9 @@ safety>=2.3.5
 semgrep>=1.45.0
 
 # AI model testing
-openai>=1.0.0
-anthropic>=0.8.0
-google-generativeai>=0.3.0
+openai>=1.0.0,<2.0.0
+anthropic>=0.8.0,<1.0.0
+google-generativeai>=0.3.0,<1.0.0
 
 # Coq proof verification
 # coq>=8.18.0  # Install Coq separately using your OS package manager or Docker
