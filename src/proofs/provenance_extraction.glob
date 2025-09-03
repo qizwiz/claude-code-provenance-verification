@@ -1,0 +1,145 @@
+DIGEST d00823fd1211fde96db2a13f02816e9e
+Fprovenance_extraction
+R52:55 Coq.Bool.Bool <> <> lib
+R57:62 Coq.Strings.String <> <> lib
+R64:67 Coq.Lists.List <> <> lib
+R103:112 Coq.extraction.Extraction <> <> lib
+R122:134 Coq.Lists.List ListNotations <> mod
+def 181:185 <> Claim
+R196:201 Coq.Strings.String <> string ind
+def 215:222 <> Evidence
+R233:238 Coq.Strings.String <> string ind
+def 252:261 <> Confidence
+R272:274 Coq.Init.Datatypes <> nat ind
+rec 307:320 <> EvidenceRecord
+proj 346:352 <> content
+proj 368:377 <> source_url
+proj 391:398 <> verified
+proj 410:418 <> timestamp
+R356:363 provenance_extraction <> Evidence def
+R381:386 Coq.Strings.String <> string ind
+R402:405 Coq.Init.Datatypes <> bool ind
+R422:424 Coq.Init.Datatypes <> nat ind
+def 464:478 <> ProvenanceChain
+R489:492 Coq.Init.Datatypes <> list ind
+R494:507 provenance_extraction <> EvidenceRecord rec
+rec 545:550 <> Config
+proj 574:593 <> confidence_threshold
+proj 611:630 <> require_verification
+R597:606 provenance_extraction <> Confidence def
+R634:637 Coq.Init.Datatypes <> bool ind
+def 721:730 <> EvidenceDB
+R746:749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R741:745 provenance_extraction <> Claim def
+R750:764 provenance_extraction <> ProvenanceChain def
+def 808:819 <> all_verified
+R830:844 provenance_extraction <> ProvenanceChain def
+binder 822:826 <> chain:9
+R849:852 Coq.Init.Datatypes <> bool ind
+R859:865 Coq.Lists.List <> forallb def
+R889:893 provenance_extraction <> chain:9 var
+binder 872:872 <> e:10
+R877:884 provenance_extraction <> verified proj
+R886:886 provenance_extraction <> e:10 var
+def 908:919 <> has_evidence
+R930:944 provenance_extraction <> ProvenanceChain def
+binder 922:926 <> chain:11
+R949:952 Coq.Init.Datatypes <> bool ind
+R965:969 provenance_extraction <> chain:11 var
+R980:981 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R986:990 Coq.Init.Datatypes <> false constr
+R1001:1004 Coq.Init.Datatypes <> true constr
+def 1025:1039 <> calc_confidence
+R1050:1064 provenance_extraction <> ProvenanceChain def
+binder 1042:1046 <> chain:13
+R1069:1078 provenance_extraction <> Confidence def
+R1107:1112 Coq.Lists.List <> length abbrev
+R1115:1120 Coq.Lists.List <> filter def
+R1144:1148 provenance_extraction <> chain:13 var
+binder 1127:1127 <> e:14
+R1132:1139 provenance_extraction <> verified proj
+R1141:1141 provenance_extraction <> e:14 var
+binder 1089:1102 <> verified_count:15
+R1175:1180 Coq.Lists.List <> length abbrev
+R1182:1186 provenance_extraction <> chain:13 var
+binder 1160:1170 <> total_count:16
+R1196:1202 Coq.Init.Nat <> eqb def
+R1204:1214 provenance_extraction <> total_count:16 var
+R1233:1239 Coq.Init.Nat <> div def
+R1256:1258 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1242:1255 provenance_extraction <> verified_count:15 var
+R1264:1274 provenance_extraction <> total_count:16 var
+def 1322:1333 <> verify_claim
+R1345:1350 provenance_extraction <> Config rec
+binder 1336:1341 <> config:17
+R1368:1377 provenance_extraction <> EvidenceDB def
+binder 1354:1364 <> evidence_db:18
+R1389:1393 provenance_extraction <> Claim def
+binder 1381:1385 <> claim:19
+R1398:1401 Coq.Init.Datatypes <> bool ind
+R1421:1431 provenance_extraction <> evidence_db:18 var
+R1433:1437 provenance_extraction <> claim:19 var
+binder 1412:1416 <> chain:20
+R1458:1469 provenance_extraction <> has_evidence def
+R1471:1475 provenance_extraction <> chain:20 var
+binder 1448:1453 <> has_ev:21
+R1497:1508 provenance_extraction <> all_verified def
+R1510:1514 provenance_extraction <> chain:20 var
+binder 1486:1492 <> all_ver:22
+R1533:1547 provenance_extraction <> calc_confidence def
+R1549:1553 provenance_extraction <> chain:20 var
+binder 1525:1528 <> conf:23
+R1583:1589 Coq.Init.Nat <> leb def
+R1592:1611 provenance_extraction <> confidence_threshold proj
+R1613:1618 provenance_extraction <> config:17 var
+R1621:1624 provenance_extraction <> conf:23 var
+binder 1564:1578 <> meets_threshold:24
+R1634:1637 Coq.Init.Datatypes <> andb def
+R1647:1650 Coq.Init.Datatypes <> andb def
+R1660:1674 provenance_extraction <> meets_threshold:24 var
+R1652:1658 provenance_extraction <> all_ver:22 var
+R1639:1644 provenance_extraction <> has_ev:21 var
+def 1750:1764 <> lookup_evidence
+R1775:1779 provenance_extraction <> Claim def
+binder 1767:1771 <> claim:25
+R1784:1798 provenance_extraction <> ProvenanceChain def
+R1811:1815 provenance_extraction <> claim:25 var
+R1871:1871 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2042:2042 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1872:1881 provenance_extraction <> mkEvidence constr
+R2015:2018 Coq.Init.Datatypes <> true constr
+R2053:2054 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 2111:2121 <> check_claim
+R2132:2136 provenance_extraction <> Claim def
+binder 2124:2128 <> claim:27
+R2145:2147 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2141:2144 Coq.Init.Datatypes <> bool ind
+R2148:2153 Coq.Strings.String <> string ind
+R2174:2181 provenance_extraction <> mkConfig constr
+R2186:2189 Coq.Init.Datatypes <> true constr
+binder 2164:2169 <> config:28
+R2210:2221 provenance_extraction <> verify_claim def
+R2223:2228 provenance_extraction <> config:28 var
+R2230:2244 provenance_extraction <> lookup_evidence def
+R2246:2250 provenance_extraction <> claim:27 var
+binder 2200:2205 <> result:29
+R2275:2280 provenance_extraction <> result:29 var
+binder 2261:2267 <> message:30
+R2423:2423 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2430:2431 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2439:2439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2424:2429 provenance_extraction <> result:29 var
+R2432:2438 provenance_extraction <> message:30 var
+def 2474:2495 <> example_verified_claim
+R2503:2505 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2499:2502 Coq.Init.Datatypes <> bool ind
+R2506:2511 Coq.Strings.String <> string ind
+R2518:2528 provenance_extraction <> check_claim def
+def 2571:2594 <> example_unverified_claim
+R2602:2604 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2598:2601 Coq.Init.Datatypes <> bool ind
+R2605:2610 Coq.Strings.String <> string ind
+R2617:2627 provenance_extraction <> check_claim def
+R2737:2740 Coq.Init.Datatypes <> bool ind
+R2790:2793 Coq.Init.Datatypes <> list ind
+R2840:2842 Coq.Init.Datatypes <> nat ind

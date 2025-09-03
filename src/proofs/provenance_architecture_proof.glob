@@ -1,0 +1,303 @@
+DIGEST fcd7acbff567a689229fad5dbd702476
+FProvenanceVerification.provenance_architecture_proof
+R985:988 Stdlib.Bool.Bool <> <> lib
+R1006:1009 Stdlib.Lists.List <> <> lib
+R1027:1032 Stdlib.Strings.String <> <> lib
+R1050:1054 Stdlib.Arith.Arith <> <> lib
+R1064:1076 Stdlib.Lists.List ListNotations <> mod
+def 1134:1138 <> Claim
+R1143:1148 Stdlib.Strings.String <> string ind
+def 1162:1169 <> Evidence
+R1174:1179 Stdlib.Strings.String <> string ind
+def 1193:1202 <> Confidence
+R1207:1209 Corelib.Init.Datatypes <> nat ind
+def 1241:1244 <> Hash
+R1249:1254 Stdlib.Strings.String <> string ind
+def 1268:1276 <> Timestamp
+R1281:1283 Corelib.Init.Datatypes <> nat ind
+rec 1316:1329 <> EvidenceRecord
+proj 1356:1362 <> content
+proj 1378:1388 <> source_hash
+proj 1400:1408 <> timestamp
+proj 1425:1432 <> verified
+R1366:1373 ProvenanceVerification.provenance_architecture_proof <> Evidence def
+R1392:1395 ProvenanceVerification.provenance_architecture_proof <> Hash def
+R1412:1420 ProvenanceVerification.provenance_architecture_proof <> Timestamp def
+R1436:1439 Corelib.Init.Datatypes <> bool ind
+def 1479:1493 <> ProvenanceChain
+R1498:1501 Corelib.Init.Datatypes <> list ind
+R1503:1516 ProvenanceVerification.provenance_architecture_proof <> EvidenceRecord rec
+rec 1546:1561 <> ProvenanceSystem
+proj 1586:1591 <> claims
+proj 1609:1619 <> evidence_db
+proj 1651:1663 <> confidence_fn
+proj 1709:1717 <> threshold
+R1595:1598 Corelib.Init.Datatypes <> list ind
+R1600:1604 ProvenanceVerification.provenance_architecture_proof <> Claim def
+R1628:1631 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1623:1627 ProvenanceVerification.provenance_architecture_proof <> Claim def
+R1632:1646 ProvenanceVerification.provenance_architecture_proof <> ProvenanceChain def
+R1672:1675 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1667:1671 ProvenanceVerification.provenance_architecture_proof <> Claim def
+R1691:1694 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1676:1690 ProvenanceVerification.provenance_architecture_proof <> ProvenanceChain def
+R1695:1704 ProvenanceVerification.provenance_architecture_proof <> Confidence def
+R1721:1730 ProvenanceVerification.provenance_architecture_proof <> Confidence def
+def 1776:1787 <> has_evidence
+R1796:1811 ProvenanceVerification.provenance_architecture_proof <> ProvenanceSystem rec
+binder 1790:1792 <> sys:11
+R1819:1823 ProvenanceVerification.provenance_architecture_proof <> Claim def
+binder 1815:1815 <> c:12
+R1828:1831 Corelib.Init.Datatypes <> bool ind
+R1849:1859 ProvenanceVerification.provenance_architecture_proof <> evidence_db proj
+R1844:1846 ProvenanceVerification.provenance_architecture_proof <> sys:11 var
+R1862:1862 ProvenanceVerification.provenance_architecture_proof <> c:12 var
+R1873:1874 Stdlib.Lists.List ListNotations ::list_scope:'['_']' not
+R1879:1883 Corelib.Init.Datatypes <> false constr
+R1894:1897 Corelib.Init.Datatypes <> true constr
+def 1918:1929 <> all_verified
+R1940:1954 ProvenanceVerification.provenance_architecture_proof <> ProvenanceChain def
+binder 1932:1936 <> chain:13
+R1959:1962 Corelib.Init.Datatypes <> bool ind
+R1969:1975 Stdlib.Lists.List <> forallb def
+R2001:2005 ProvenanceVerification.provenance_architecture_proof <> chain:13 var
+binder 1982:1982 <> e:14
+R1990:1997 ProvenanceVerification.provenance_architecture_proof <> verified proj
+R1987:1987 ProvenanceVerification.provenance_architecture_proof <> e:14 var
+def 2020:2038 <> sufficient_evidence
+R2047:2062 ProvenanceVerification.provenance_architecture_proof <> ProvenanceSystem rec
+binder 2041:2043 <> sys:15
+R2070:2074 ProvenanceVerification.provenance_architecture_proof <> Claim def
+binder 2066:2066 <> c:16
+R2079:2082 Corelib.Init.Datatypes <> bool ind
+R2107:2117 ProvenanceVerification.provenance_architecture_proof <> evidence_db proj
+R2102:2104 ProvenanceVerification.provenance_architecture_proof <> sys:15 var
+R2120:2120 ProvenanceVerification.provenance_architecture_proof <> c:16 var
+binder 2093:2097 <> chain:17
+R2144:2156 ProvenanceVerification.provenance_architecture_proof <> confidence_fn proj
+R2139:2141 ProvenanceVerification.provenance_architecture_proof <> sys:15 var
+R2159:2159 ProvenanceVerification.provenance_architecture_proof <> c:16 var
+R2161:2165 ProvenanceVerification.provenance_architecture_proof <> chain:17 var
+binder 2131:2134 <> conf:18
+R2172:2175 Corelib.Init.Datatypes <> andb def
+R2199:2205 Stdlib.Arith.PeanoNat Nat leb def
+R2212:2220 ProvenanceVerification.provenance_architecture_proof <> threshold proj
+R2207:2209 ProvenanceVerification.provenance_architecture_proof <> sys:15 var
+R2223:2226 ProvenanceVerification.provenance_architecture_proof <> conf:18 var
+R2178:2189 ProvenanceVerification.provenance_architecture_proof <> all_verified def
+R2191:2195 ProvenanceVerification.provenance_architecture_proof <> chain:17 var
+def 2299:2308 <> assertable
+R2317:2332 ProvenanceVerification.provenance_architecture_proof <> ProvenanceSystem rec
+binder 2311:2313 <> sys:19
+R2340:2344 ProvenanceVerification.provenance_architecture_proof <> Claim def
+binder 2336:2336 <> c:20
+R2349:2352 Corelib.Init.Datatypes <> bool ind
+R2359:2362 Corelib.Init.Datatypes <> andb def
+R2386:2404 ProvenanceVerification.provenance_architecture_proof <> sufficient_evidence def
+R2406:2408 ProvenanceVerification.provenance_architecture_proof <> sys:19 var
+R2410:2410 ProvenanceVerification.provenance_architecture_proof <> c:20 var
+R2365:2376 ProvenanceVerification.provenance_architecture_proof <> has_evidence def
+R2378:2380 ProvenanceVerification.provenance_architecture_proof <> sys:19 var
+R2382:2382 ProvenanceVerification.provenance_architecture_proof <> c:20 var
+def 2498:2514 <> provenance_intact
+R2525:2539 ProvenanceVerification.provenance_architecture_proof <> ProvenanceChain def
+binder 2517:2521 <> chain:21
+R2569:2582 ProvenanceVerification.provenance_architecture_proof <> EvidenceRecord rec
+binder 2561:2562 <> e1:22
+binder 2564:2565 <> e2:23
+R2600:2603 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2589:2590 Stdlib.Lists.List <> In def
+R2595:2599 ProvenanceVerification.provenance_architecture_proof <> chain:21 var
+R2592:2593 ProvenanceVerification.provenance_architecture_proof <> e1:22 var
+R2615:2622 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2604:2605 Stdlib.Lists.List <> In def
+R2610:2614 ProvenanceVerification.provenance_architecture_proof <> chain:21 var
+R2607:2608 ProvenanceVerification.provenance_architecture_proof <> e2:23 var
+R2659:2662 Corelib.Init.Logic <> ::type_scope:x_'\/'_x not
+R2639:2642 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R2627:2637 ProvenanceVerification.provenance_architecture_proof <> source_hash proj
+R2623:2624 ProvenanceVerification.provenance_architecture_proof <> e1:22 var
+R2647:2657 ProvenanceVerification.provenance_architecture_proof <> source_hash proj
+R2643:2644 ProvenanceVerification.provenance_architecture_proof <> e2:23 var
+R2665:2667 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2663:2664 ProvenanceVerification.provenance_architecture_proof <> e1:22 var
+R2668:2669 ProvenanceVerification.provenance_architecture_proof <> e2:23 var
+prf 2707:2718 <> claim_safety
+R2738:2753 ProvenanceVerification.provenance_architecture_proof <> ProvenanceSystem rec
+binder 2732:2734 <> sys:24
+R2761:2765 ProvenanceVerification.provenance_architecture_proof <> Claim def
+binder 2757:2757 <> c:25
+R2796:2803 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2789:2791 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2773:2782 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R2784:2786 ProvenanceVerification.provenance_architecture_proof <> sys:24 var
+R2788:2788 ProvenanceVerification.provenance_architecture_proof <> c:25 var
+R2792:2795 Corelib.Init.Datatypes <> true constr
+R2838:2840 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2804:2815 ProvenanceVerification.provenance_architecture_proof <> all_verified def
+R2823:2833 ProvenanceVerification.provenance_architecture_proof <> evidence_db proj
+R2818:2820 ProvenanceVerification.provenance_architecture_proof <> sys:24 var
+R2836:2836 ProvenanceVerification.provenance_architecture_proof <> c:25 var
+R2841:2844 Corelib.Init.Datatypes <> true constr
+R2892:2901 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R2928:2940 Stdlib.Bool.Bool <> andb_true_iff thm
+R2928:2940 Stdlib.Bool.Bool <> andb_true_iff thm
+R3029:3047 ProvenanceVerification.provenance_architecture_proof <> sufficient_evidence def
+R3074:3086 Stdlib.Bool.Bool <> andb_true_iff thm
+R3074:3086 Stdlib.Bool.Bool <> andb_true_iff thm
+prf 3247:3265 <> no_false_assertions
+R3285:3300 ProvenanceVerification.provenance_architecture_proof <> ProvenanceSystem rec
+binder 3279:3281 <> sys:26
+R3308:3312 ProvenanceVerification.provenance_architecture_proof <> Claim def
+binder 3304:3304 <> c:27
+R3344:3351 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3336:3338 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3320:3329 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R3331:3333 ProvenanceVerification.provenance_architecture_proof <> sys:26 var
+R3335:3335 ProvenanceVerification.provenance_architecture_proof <> c:27 var
+R3339:3343 Corelib.Init.Datatypes <> false constr
+R3352:3354 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R3416:3416 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R3380:3383 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3373:3375 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3355:3366 ProvenanceVerification.provenance_architecture_proof <> has_evidence def
+R3368:3370 ProvenanceVerification.provenance_architecture_proof <> sys:26 var
+R3372:3372 ProvenanceVerification.provenance_architecture_proof <> c:27 var
+R3376:3379 Corelib.Init.Datatypes <> true constr
+R3409:3411 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3384:3402 ProvenanceVerification.provenance_architecture_proof <> sufficient_evidence def
+R3404:3406 ProvenanceVerification.provenance_architecture_proof <> sys:26 var
+R3408:3408 ProvenanceVerification.provenance_architecture_proof <> c:27 var
+R3412:3415 Corelib.Init.Datatypes <> true constr
+R3468:3477 ProvenanceVerification.provenance_architecture_proof <> assertable def
+def 3808:3818 <> audit_trail
+R3827:3842 ProvenanceVerification.provenance_architecture_proof <> ProvenanceSystem rec
+binder 3821:3823 <> sys:28
+R3850:3854 ProvenanceVerification.provenance_architecture_proof <> Claim def
+binder 3846:3846 <> c:29
+R3859:3862 Corelib.Init.Datatypes <> list ind
+R3864:3867 ProvenanceVerification.provenance_architecture_proof <> Hash def
+R3874:3876 Corelib.Lists.ListDef <> map def
+R3911:3921 ProvenanceVerification.provenance_architecture_proof <> evidence_db proj
+R3906:3908 ProvenanceVerification.provenance_architecture_proof <> sys:28 var
+R3924:3924 ProvenanceVerification.provenance_architecture_proof <> c:29 var
+binder 3883:3883 <> e:30
+R3891:3901 ProvenanceVerification.provenance_architecture_proof <> source_hash proj
+R3888:3888 ProvenanceVerification.provenance_architecture_proof <> e:30 var
+prf 3937:3956 <> traceable_provenance
+R3976:3991 ProvenanceVerification.provenance_architecture_proof <> ProvenanceSystem rec
+binder 3970:3972 <> sys:31
+R3999:4003 ProvenanceVerification.provenance_architecture_proof <> Claim def
+binder 3995:3995 <> c:32
+R4034:4041 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4027:4029 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4011:4020 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R4022:4024 ProvenanceVerification.provenance_architecture_proof <> sys:31 var
+R4026:4026 ProvenanceVerification.provenance_architecture_proof <> c:32 var
+R4030:4033 Corelib.Init.Datatypes <> true constr
+R4074:4076 Corelib.Init.Peano <> ::nat_scope:x_'>'_x not
+R4043:4053 Stdlib.Lists.List <> length abbrev
+R4056:4066 ProvenanceVerification.provenance_architecture_proof <> audit_trail def
+R4068:4070 ProvenanceVerification.provenance_architecture_proof <> sys:31 var
+R4072:4072 ProvenanceVerification.provenance_architecture_proof <> c:32 var
+R4130:4139 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R4166:4178 Stdlib.Bool.Bool <> andb_true_iff thm
+R4166:4178 Stdlib.Bool.Bool <> andb_true_iff thm
+R4256:4267 ProvenanceVerification.provenance_architecture_proof <> has_evidence def
+R4297:4307 ProvenanceVerification.provenance_architecture_proof <> audit_trail def
+R4330:4340 ProvenanceVerification.provenance_architecture_proof <> evidence_db proj
+R4330:4340 ProvenanceVerification.provenance_architecture_proof <> evidence_db proj
+R4532:4544 Stdlib.Arith.PeanoNat Nat lt_0_succ thm
+R4532:4544 Stdlib.Arith.PeanoNat Nat lt_0_succ thm
+def 4609:4626 <> conversation_claim
+def 4686:4700 <> search_evidence
+R4705:4714 ProvenanceVerification.provenance_architecture_proof <> mkEvidence constr
+R4799:4802 Corelib.Init.Datatypes <> true constr
+def 4861:4877 <> verified_evidence
+R4882:4891 ProvenanceVerification.provenance_architecture_proof <> mkEvidence constr
+R4997:5000 Corelib.Init.Datatypes <> true constr
+def 5015:5025 <> demo_system
+R5030:5037 ProvenanceVerification.provenance_architecture_proof <> mkSystem constr
+R5041:5041 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5060:5060 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5042:5059 ProvenanceVerification.provenance_architecture_proof <> conversation_claim ex
+binder 5069:5069 <> c:33
+R5077:5086 Stdlib.Strings.String <> eqb def
+R5088:5088 ProvenanceVerification.provenance_architecture_proof <> c:33 var
+R5090:5107 ProvenanceVerification.provenance_architecture_proof <> conversation_claim ex
+R5179:5180 Stdlib.Lists.List ListNotations ::list_scope:'['_']' not
+R5126:5126 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5142:5143 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5161:5161 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5127:5141 ProvenanceVerification.provenance_architecture_proof <> search_evidence ex
+R5144:5160 ProvenanceVerification.provenance_architecture_proof <> verified_evidence ex
+binder 5190:5190 <> c:34
+binder 5192:5196 <> chain:35
+R5228:5238 Stdlib.Lists.List <> length abbrev
+R5241:5251 Stdlib.Lists.List <> filter def
+R5277:5281 ProvenanceVerification.provenance_architecture_proof <> chain:35 var
+binder 5258:5258 <> e:36
+R5266:5273 ProvenanceVerification.provenance_architecture_proof <> verified proj
+R5263:5263 ProvenanceVerification.provenance_architecture_proof <> e:36 var
+binder 5210:5223 <> verified_count:37
+R5310:5320 Stdlib.Lists.List <> length abbrev
+R5322:5326 ProvenanceVerification.provenance_architecture_proof <> chain:35 var
+binder 5295:5305 <> total_count:38
+R5338:5344 Stdlib.Arith.PeanoNat Nat eqb def
+R5346:5356 ProvenanceVerification.provenance_architecture_proof <> total_count:38 var
+R5372:5378 Stdlib.Arith.PeanoNat Nat div def
+R5395:5397 Corelib.Init.Peano <> ::nat_scope:x_'*'_x not
+R5381:5394 ProvenanceVerification.provenance_architecture_proof <> verified_count:37 var
+R5403:5413 ProvenanceVerification.provenance_architecture_proof <> total_count:38 var
+def 5473:5492 <> demo_assertion_valid
+R5539:5541 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5498:5507 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R5509:5519 ProvenanceVerification.provenance_architecture_proof <> demo_system def
+R5521:5538 ProvenanceVerification.provenance_architecture_proof <> conversation_claim ex
+R5542:5545 Corelib.Init.Datatypes <> true constr
+R5564:5573 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R5576:5587 ProvenanceVerification.provenance_architecture_proof <> has_evidence def
+R5590:5608 ProvenanceVerification.provenance_architecture_proof <> sufficient_evidence def
+def 5649:5665 <> unverified_search
+R5670:5679 ProvenanceVerification.provenance_architecture_proof <> mkEvidence constr
+R5750:5754 Corelib.Init.Datatypes <> false constr
+def 5794:5818 <> demo_with_unverified_only
+R5842:5849 ProvenanceVerification.provenance_architecture_proof <> mkSystem constr
+R5855:5855 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5874:5874 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5856:5873 ProvenanceVerification.provenance_architecture_proof <> conversation_claim ex
+binder 5885:5885 <> c:39
+R5893:5902 Stdlib.Strings.String <> eqb def
+R5904:5904 ProvenanceVerification.provenance_architecture_proof <> c:39 var
+R5906:5923 ProvenanceVerification.provenance_architecture_proof <> conversation_claim ex
+R6014:6015 Stdlib.Lists.List ListNotations ::list_scope:'['_']' not
+R5944:5944 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5962:5962 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5945:5961 ProvenanceVerification.provenance_architecture_proof <> unverified_search ex
+binder 6027:6027 <> c:40
+binder 6029:6033 <> chain:41
+R6067:6077 Stdlib.Lists.List <> length abbrev
+R6080:6090 Stdlib.Lists.List <> filter def
+R6116:6120 ProvenanceVerification.provenance_architecture_proof <> chain:41 var
+binder 6097:6097 <> e:42
+R6105:6112 ProvenanceVerification.provenance_architecture_proof <> verified proj
+R6102:6102 ProvenanceVerification.provenance_architecture_proof <> e:42 var
+binder 6049:6062 <> verified_count:43
+R6151:6161 Stdlib.Lists.List <> length abbrev
+R6163:6167 ProvenanceVerification.provenance_architecture_proof <> chain:41 var
+binder 6136:6146 <> total_count:44
+R6181:6187 Stdlib.Arith.PeanoNat Nat eqb def
+R6189:6199 ProvenanceVerification.provenance_architecture_proof <> total_count:44 var
+R6215:6221 Stdlib.Arith.PeanoNat Nat div def
+R6238:6240 Corelib.Init.Peano <> ::nat_scope:x_'*'_x not
+R6224:6237 ProvenanceVerification.provenance_architecture_proof <> verified_count:43 var
+R6246:6256 ProvenanceVerification.provenance_architecture_proof <> total_count:44 var
+binder 5828:5837 <> bad_system:45
+R6311:6313 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6271:6280 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R6282:6291 ProvenanceVerification.provenance_architecture_proof <> bad_system:45 var
+R6293:6310 ProvenanceVerification.provenance_architecture_proof <> conversation_claim ex
+R6314:6318 Corelib.Init.Datatypes <> false constr
+R6337:6346 ProvenanceVerification.provenance_architecture_proof <> assertable def
+R6349:6360 ProvenanceVerification.provenance_architecture_proof <> has_evidence def
+R6363:6381 ProvenanceVerification.provenance_architecture_proof <> sufficient_evidence def

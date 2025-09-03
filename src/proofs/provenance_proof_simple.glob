@@ -1,0 +1,295 @@
+DIGEST d4b9087d33f27d750e6d2d83b9dd9c5f
+Fprovenance_proof_simple
+R63:66 Coq.Bool.Bool <> <> lib
+R68:71 Coq.Lists.List <> <> lib
+R73:77 Coq.Arith.Arith <> <> lib
+R87:99 Coq.Lists.List ListNotations <> mod
+def 131:135 <> Claim
+R140:142 Coq.Init.Datatypes <> nat ind
+def 156:163 <> Evidence
+R168:170 Coq.Init.Datatypes <> nat ind
+def 184:193 <> Confidence
+R198:200 Coq.Init.Datatypes <> nat ind
+rec 251:264 <> EvidenceRecord
+proj 291:297 <> content
+proj 313:320 <> verified
+R301:308 provenance_proof_simple <> Evidence def
+R324:327 Coq.Init.Datatypes <> bool ind
+def 344:358 <> ProvenanceChain
+R363:366 Coq.Init.Datatypes <> list ind
+R368:381 provenance_proof_simple <> EvidenceRecord rec
+rec 416:431 <> ProvenanceSystem
+proj 456:466 <> evidence_db
+proj 498:506 <> threshold
+R475:478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R470:474 provenance_proof_simple <> Claim def
+R479:493 provenance_proof_simple <> ProvenanceChain def
+R510:519 provenance_proof_simple <> Confidence def
+def 576:587 <> all_verified
+R598:612 provenance_proof_simple <> ProvenanceChain def
+binder 590:594 <> chain:7
+R617:620 Coq.Init.Datatypes <> bool ind
+R627:633 Coq.Lists.List <> forallb def
+R657:661 provenance_proof_simple <> chain:7 var
+binder 640:640 <> e:8
+R645:652 provenance_proof_simple <> verified proj
+R654:654 provenance_proof_simple <> e:8 var
+def 723:734 <> has_evidence
+R745:759 provenance_proof_simple <> ProvenanceChain def
+binder 737:741 <> chain:9
+R764:767 Coq.Init.Datatypes <> bool ind
+R780:784 provenance_proof_simple <> chain:9 var
+R795:796 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R801:805 Coq.Init.Datatypes <> false constr
+R816:819 Coq.Init.Datatypes <> true constr
+def 869:883 <> calc_confidence
+R894:908 provenance_proof_simple <> ProvenanceChain def
+binder 886:890 <> chain:11
+R913:922 provenance_proof_simple <> Confidence def
+R951:956 Coq.Init.Datatypes <> length def
+R959:964 Coq.Lists.List <> filter def
+R988:992 provenance_proof_simple <> chain:11 var
+binder 971:971 <> e:12
+R976:983 provenance_proof_simple <> verified proj
+R985:985 provenance_proof_simple <> e:12 var
+binder 933:946 <> verified_count:13
+R1019:1024 Coq.Init.Datatypes <> length def
+R1026:1030 provenance_proof_simple <> chain:11 var
+binder 1004:1014 <> total_count:14
+R1040:1046 Coq.Arith.PeanoNat Nat eqb def
+R1048:1058 provenance_proof_simple <> total_count:14 var
+R1077:1083 Coq.Arith.PeanoNat Nat div def
+R1100:1102 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1086:1099 provenance_proof_simple <> verified_count:13 var
+R1108:1118 provenance_proof_simple <> total_count:14 var
+def 1169:1187 <> sufficient_evidence
+R1196:1211 provenance_proof_simple <> ProvenanceSystem rec
+binder 1190:1192 <> sys:15
+R1223:1237 provenance_proof_simple <> ProvenanceChain def
+binder 1215:1219 <> chain:16
+R1242:1245 Coq.Init.Datatypes <> bool ind
+R1264:1278 provenance_proof_simple <> calc_confidence def
+R1280:1284 provenance_proof_simple <> chain:16 var
+binder 1256:1259 <> conf:17
+R1291:1294 Coq.Init.Datatypes <> andb def
+R1318:1324 Coq.Arith.PeanoNat Nat leb def
+R1327:1335 provenance_proof_simple <> threshold proj
+R1337:1339 provenance_proof_simple <> sys:15 var
+R1342:1345 provenance_proof_simple <> conf:17 var
+R1297:1308 provenance_proof_simple <> all_verified def
+R1310:1314 provenance_proof_simple <> chain:16 var
+def 1392:1401 <> assertable
+R1410:1425 provenance_proof_simple <> ProvenanceSystem rec
+binder 1404:1406 <> sys:18
+R1433:1437 provenance_proof_simple <> Claim def
+binder 1429:1429 <> c:19
+R1442:1445 Coq.Init.Datatypes <> bool ind
+R1465:1475 provenance_proof_simple <> evidence_db proj
+R1477:1479 provenance_proof_simple <> sys:18 var
+R1481:1481 provenance_proof_simple <> c:19 var
+binder 1456:1460 <> chain:20
+R1488:1491 Coq.Init.Datatypes <> andb def
+R1515:1533 provenance_proof_simple <> sufficient_evidence def
+R1535:1537 provenance_proof_simple <> sys:18 var
+R1539:1543 provenance_proof_simple <> chain:20 var
+R1494:1505 provenance_proof_simple <> has_evidence def
+R1507:1511 provenance_proof_simple <> chain:20 var
+prf 1636:1647 <> claim_safety
+R1667:1682 provenance_proof_simple <> ProvenanceSystem rec
+binder 1661:1663 <> sys:21
+R1690:1694 provenance_proof_simple <> Claim def
+binder 1686:1686 <> c:22
+R1725:1732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1718:1720 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1702:1711 provenance_proof_simple <> assertable def
+R1713:1715 provenance_proof_simple <> sys:21 var
+R1717:1717 provenance_proof_simple <> c:22 var
+R1721:1724 Coq.Init.Datatypes <> true constr
+R1765:1767 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1733:1744 provenance_proof_simple <> all_verified def
+R1747:1757 provenance_proof_simple <> evidence_db proj
+R1759:1761 provenance_proof_simple <> sys:21 var
+R1763:1763 provenance_proof_simple <> c:22 var
+R1768:1771 Coq.Init.Datatypes <> true constr
+R1819:1828 provenance_proof_simple <> assertable def
+R1855:1867 Coq.Bool.Bool <> andb_true_iff thm
+R1855:1867 Coq.Bool.Bool <> andb_true_iff thm
+R1956:1974 provenance_proof_simple <> sufficient_evidence def
+R2001:2013 Coq.Bool.Bool <> andb_true_iff thm
+R2001:2013 Coq.Bool.Bool <> andb_true_iff thm
+prf 2171:2194 <> no_unverified_assertions
+R2214:2229 provenance_proof_simple <> ProvenanceSystem rec
+binder 2208:2210 <> sys:23
+R2237:2241 provenance_proof_simple <> Claim def
+binder 2233:2233 <> c:24
+R2289:2296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2281:2283 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2249:2260 provenance_proof_simple <> all_verified def
+R2263:2273 provenance_proof_simple <> evidence_db proj
+R2275:2277 provenance_proof_simple <> sys:23 var
+R2279:2279 provenance_proof_simple <> c:24 var
+R2284:2288 Coq.Init.Datatypes <> false constr
+R2313:2315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2297:2306 provenance_proof_simple <> assertable def
+R2308:2310 provenance_proof_simple <> sys:23 var
+R2312:2312 provenance_proof_simple <> c:24 var
+R2316:2320 Coq.Init.Datatypes <> false constr
+R2368:2377 provenance_proof_simple <> assertable def
+R2395:2406 provenance_proof_simple <> has_evidence def
+R2409:2419 provenance_proof_simple <> evidence_db proj
+R2395:2406 provenance_proof_simple <> has_evidence def
+R2409:2419 provenance_proof_simple <> evidence_db proj
+R2502:2520 provenance_proof_simple <> sufficient_evidence def
+prf 2700:2719 <> evidence_requirement
+R2739:2754 provenance_proof_simple <> ProvenanceSystem rec
+binder 2733:2735 <> sys:25
+R2762:2766 provenance_proof_simple <> Claim def
+binder 2758:2758 <> c:26
+R2797:2804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2790:2792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2774:2783 provenance_proof_simple <> assertable def
+R2785:2787 provenance_proof_simple <> sys:25 var
+R2789:2789 provenance_proof_simple <> c:26 var
+R2793:2796 Coq.Init.Datatypes <> true constr
+R2805:2811 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2830:2837 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2816:2829 provenance_proof_simple <> EvidenceRecord rec
+binder 2812:2812 <> e:27
+R2862:2865 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2838:2839 Coq.Lists.List <> In def
+R2844:2854 provenance_proof_simple <> evidence_db proj
+R2856:2858 provenance_proof_simple <> sys:25 var
+R2860:2860 provenance_proof_simple <> c:26 var
+R2841:2841 provenance_proof_simple <> e:27 var
+R2876:2878 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2866:2873 provenance_proof_simple <> verified proj
+R2875:2875 provenance_proof_simple <> e:27 var
+R2879:2882 Coq.Init.Datatypes <> true constr
+R2930:2939 provenance_proof_simple <> assertable def
+R2966:2978 Coq.Bool.Bool <> andb_true_iff thm
+R2966:2978 Coq.Bool.Bool <> andb_true_iff thm
+R3064:3082 provenance_proof_simple <> sufficient_evidence def
+R3109:3121 Coq.Bool.Bool <> andb_true_iff thm
+R3109:3121 Coq.Bool.Bool <> andb_true_iff thm
+R3196:3207 provenance_proof_simple <> has_evidence def
+R3240:3250 provenance_proof_simple <> evidence_db proj
+R3240:3250 provenance_proof_simple <> evidence_db proj
+R3357:3361 Coq.Lists.List <> in_eq thm
+R3357:3361 Coq.Lists.List <> in_eq thm
+R3379:3390 provenance_proof_simple <> all_verified def
+R3454:3466 Coq.Bool.Bool <> andb_true_iff thm
+R3454:3466 Coq.Bool.Bool <> andb_true_iff thm
+def 3658:3670 <> search_result
+R3675:3684 provenance_proof_simple <> mkEvidence constr
+R3688:3691 Coq.Init.Datatypes <> true constr
+def 3736:3747 <> github_check
+R3752:3761 provenance_proof_simple <> mkEvidence constr
+R3765:3768 Coq.Init.Datatypes <> true constr
+def 3869:3879 <> demo_system
+R3884:3891 provenance_proof_simple <> mkSystem constr
+binder 3900:3900 <> c:28
+R3908:3914 Coq.Arith.PeanoNat Nat eqb def
+R3916:3916 provenance_proof_simple <> c:28 var
+R3961:3962 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3926:3926 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3940:3941 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3954:3954 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3927:3939 provenance_proof_simple <> search_result def
+R3942:3953 provenance_proof_simple <> github_check def
+def 4032:4040 <> mcp_claim
+def 4107:4121 <> demo_assertable
+R4159:4161 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4127:4136 provenance_proof_simple <> assertable def
+R4138:4148 provenance_proof_simple <> demo_system def
+R4150:4158 provenance_proof_simple <> mcp_claim def
+R4162:4165 Coq.Init.Datatypes <> true constr
+R4184:4193 provenance_proof_simple <> assertable def
+R4196:4207 provenance_proof_simple <> has_evidence def
+R4210:4228 provenance_proof_simple <> sufficient_evidence def
+R4240:4254 provenance_proof_simple <> calc_confidence def
+def 4357:4373 <> unverified_result
+R4378:4387 provenance_proof_simple <> mkEvidence constr
+R4391:4395 Coq.Init.Datatypes <> false constr
+def 4435:4444 <> bad_system
+R4449:4456 provenance_proof_simple <> mkSystem constr
+binder 4465:4465 <> c:29
+R4473:4479 Coq.Arith.PeanoNat Nat eqb def
+R4481:4481 provenance_proof_simple <> c:29 var
+R4516:4517 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4491:4491 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4509:4509 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4492:4508 provenance_proof_simple <> unverified_result def
+def 4535:4553 <> demo_not_assertable
+R4590:4592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4559:4568 provenance_proof_simple <> assertable def
+R4570:4579 provenance_proof_simple <> bad_system def
+R4581:4589 provenance_proof_simple <> mcp_claim def
+R4593:4597 Coq.Init.Datatypes <> false constr
+R4616:4625 provenance_proof_simple <> assertable def
+R4628:4639 provenance_proof_simple <> has_evidence def
+R4642:4660 provenance_proof_simple <> sufficient_evidence def
+R4672:4686 provenance_proof_simple <> calc_confidence def
+prf 4798:4814 <> meta_verification
+R4834:4849 provenance_proof_simple <> ProvenanceSystem rec
+binder 4828:4830 <> sys:30
+R4857:4861 provenance_proof_simple <> Claim def
+binder 4853:4853 <> c:31
+R4892:4902 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5097:5097 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4885:4887 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4869:4878 provenance_proof_simple <> assertable def
+R4880:4882 provenance_proof_simple <> sys:30 var
+R4884:4884 provenance_proof_simple <> c:31 var
+R4888:4891 Coq.Init.Datatypes <> true constr
+R4903:4909 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4924:4931 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4910:4923 <> evidence_chain:32
+R4966:4975 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4949:4951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4932:4942 provenance_proof_simple <> evidence_db proj
+R4944:4946 provenance_proof_simple <> sys:30 var
+R4948:4948 provenance_proof_simple <> c:31 var
+R4952:4965 provenance_proof_simple <> evidence_chain:32 var
+R4996:5005 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4990:4993 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4976:4989 provenance_proof_simple <> evidence_chain:32 var
+R4994:4995 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5040:5049 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5033:5035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5006:5017 provenance_proof_simple <> all_verified def
+R5019:5032 provenance_proof_simple <> evidence_chain:32 var
+R5036:5039 Coq.Init.Datatypes <> true constr
+R5080:5083 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5050:5064 provenance_proof_simple <> calc_confidence def
+R5066:5079 provenance_proof_simple <> evidence_chain:32 var
+R5084:5092 provenance_proof_simple <> threshold proj
+R5094:5096 provenance_proof_simple <> sys:30 var
+R5197:5207 provenance_proof_simple <> evidence_db proj
+R5197:5207 provenance_proof_simple <> evidence_db proj
+R5260:5269 provenance_proof_simple <> assertable def
+R5300:5312 Coq.Bool.Bool <> andb_true_iff thm
+R5300:5312 Coq.Bool.Bool <> andb_true_iff thm
+R5443:5454 provenance_proof_simple <> has_evidence def
+R5484:5494 provenance_proof_simple <> evidence_db proj
+R5484:5494 provenance_proof_simple <> evidence_db proj
+R5606:5624 provenance_proof_simple <> sufficient_evidence def
+R5660:5672 Coq.Bool.Bool <> andb_true_iff thm
+R5660:5672 Coq.Bool.Bool <> andb_true_iff thm
+R5828:5846 provenance_proof_simple <> sufficient_evidence def
+R5882:5894 Coq.Bool.Bool <> andb_true_iff thm
+R5882:5894 Coq.Bool.Bool <> andb_true_iff thm
+R5978:5987 Coq.Arith.PeanoNat Nat leb_le thm
+R5978:5987 Coq.Arith.PeanoNat Nat leb_le thm
+R6168:6177 provenance_proof_simple <> assertable def
+R6193:6203 provenance_proof_simple <> evidence_db proj
+R6193:6203 provenance_proof_simple <> evidence_db proj
+R6257:6269 Coq.Bool.Bool <> andb_true_iff thm
+R6257:6269 Coq.Bool.Bool <> andb_true_iff thm
+R6321:6332 provenance_proof_simple <> has_evidence def
+R6448:6466 provenance_proof_simple <> sufficient_evidence def
+R6484:6494 provenance_proof_simple <> evidence_db proj
+R6484:6494 provenance_proof_simple <> evidence_db proj
+R6550:6562 Coq.Bool.Bool <> andb_true_iff thm
+R6550:6562 Coq.Bool.Bool <> andb_true_iff thm
+R6618:6627 Coq.Arith.PeanoNat Nat leb_le thm
+R6618:6627 Coq.Arith.PeanoNat Nat leb_le thm
