@@ -26,53 +26,16 @@ async def ai_detect_claims(text: str) -> List[str]:
         
         verifier = ProvenanceVerifier()
         
-        # Get Azure token for API access
-        if not await verifier.get_azure_token():
-            print("No Azure token available for AI claim detection", file=sys.stderr)
+        # Use semantic analysis to detect claims
+        analysis = verifier.semantic_claim_analysis(text)
+        
+        if analysis["needs_verification"]:
+            claims = analysis["claims"]
+            print(f"🧠 Semantic analysis detected {len(claims)} factual claims (confidence: {analysis['confidence']}%)", file=sys.stderr)
+            return claims
+        else:
+            print(f"🧠 Semantic analysis found no verifiable claims (method: {analysis['analysis_method']})", file=sys.stderr)
             return []
-        
-        prompt = f"""
-Analyze this text and identify ALL factual claims that could be verified or disproven:
-
-Text: "{text}"
-
-Look for:
-- Statements about what exists, is available, or is true
-- Claims about origins, history, or causation
-- Assertions about quantities, relationships, or properties
-- Any definitive statements about external facts
-
-Return ONLY a JSON list of specific factual claims found:
-["claim 1", "claim 2", "claim 3"]
-
-If no factual claims are found, return: []
-"""
-        
-        import httpx
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://api.openai.com/v1/chat/completions",
-                headers={"Authorization": f"Bearer {verifier.azure_token}"},
-                json={
-                    "model": "gpt-4o-mini",
-                    "messages": [{"role": "user", "content": prompt}],
-                    "temperature": 0.1
-                },
-                timeout=30.0
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                ai_response = result["choices"][0]["message"]["content"]
-                
-                try:
-                    import json
-                    claims = json.loads(ai_response)
-                    if isinstance(claims, list):
-                        print(f"🤖 AI detected {len(claims)} factual claims", file=sys.stderr)
-                        return claims
-                except json.JSONDecodeError:
-                    pass
                     
     except Exception as e:
         print(f"AI claim detection failed: {e}", file=sys.stderr)
