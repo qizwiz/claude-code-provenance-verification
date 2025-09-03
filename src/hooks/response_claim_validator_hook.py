@@ -42,11 +42,10 @@ async def ai_detect_claims(text: str) -> List[str]:
     
     return []
 
-def call_provenance_verifier(claim: str) -> Dict[str, Any]:
+async def call_provenance_verifier(claim: str) -> Dict[str, Any]:
     """Call our AI-powered provenance verification system"""
     try:
         # Import and use the AI-powered verifier
-        import asyncio
         import os
         
         # Add the MCP server path
@@ -56,29 +55,18 @@ def call_provenance_verifier(claim: str) -> Dict[str, Any]:
         
         from provenance_mcp_server import ProvenanceVerifier
         
-        async def verify_async():
-            verifier = ProvenanceVerifier()
-            result = await verifier.verify_claim(claim)
-            return {
-                "assertable": result["assertable"],
-                "confidence": result["confidence"], 
-                "evidence_count": result["evidence_count"]
-            }
+        verifier = ProvenanceVerifier()
+        result = await verifier.verify_claim(claim)
         
-        # Run the async verification
-        try:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            result = loop.run_until_complete(verify_async())
-            loop.close()
-            print(f"🤖 AI verification completed for: {claim[:30]}...", file=sys.stderr)
-            return result
-        except Exception as async_error:
-            print(f"AI verification failed: {async_error}", file=sys.stderr)
-            raise
+        print(f"🤖 AI verification completed for: {claim[:30]}...", file=sys.stderr)
+        return {
+            "assertable": result["assertable"],
+            "confidence": result["confidence"], 
+            "evidence_count": result["evidence_count"]
+        }
             
     except Exception as e:
-        print(f"AI verification completely failed: {e}", file=sys.stderr)
+        print(f"AI verification failed: {e}", file=sys.stderr)
         # No fallback - if AI fails, assume safe
         return {"assertable": True, "confidence": 50, "evidence_count": 0}
 
@@ -113,7 +101,7 @@ async def validate_tool_input(tool_data: Dict[str, Any]) -> bool:
     blocked_claims = []
     
     for claim in potential_claims:
-        verification = call_provenance_verifier(claim)
+        verification = await call_provenance_verifier(claim)
         
         print(f"   Claim: '{claim[:50]}...'", file=sys.stderr)
         print(f"   Confidence: {verification['confidence']}%", file=sys.stderr)
