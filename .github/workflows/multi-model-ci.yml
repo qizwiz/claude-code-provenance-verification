@@ -180,7 +180,7 @@ jobs:
 
   # Performance benchmarking
   performance-tests:
-    runs-on: ubuntu-latest-xl  # Larger runner for performance testing
+    runs-on: ubuntu-latest  # Use regular runner to avoid availability issues
     steps:
       - uses: actions/checkout@v4
       
