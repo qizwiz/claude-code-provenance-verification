@@ -20,14 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Install Coq via opam
+      - name: Install Coq
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y opam ocaml
-          opam init --disable-sandboxing -y
-          eval $(opam env)
-          opam install coq -y
-          opam exec -- coqc --version
+          sudo apt-get install -y coq
+          coqc --version
           
       - name: Fix src/proofs permissions
         run: chmod -R u+w src/proofs
@@ -38,17 +35,15 @@ jobs:
       - name: Verify mathematical proofs
         run: |
           cd src/proofs
-          eval $(opam env)
-          opam exec -- coq_makefile -f _CoqProject -o Makefile
-          opam exec -- make
+          coq_makefile -f _CoqProject -o Makefile
+          make
           mkdir -p build
           cp *.vo build/ 2>/dev/null || true
             
       - name: Extract to OCaml
         run: |
           cd src/proofs
-          eval $(opam env)
-          opam exec -- coqc provenance_extraction.v
+          coqc provenance_extraction.v
           mkdir -p build
           cp *.ml *.mli build/ 2>/dev/null || true
           
