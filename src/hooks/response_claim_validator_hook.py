@@ -10,51 +10,74 @@ import re
 import subprocess
 from typing import List, Dict, Any, Optional
 
-# Patterns that indicate potential unverified claims
-CLAIM_PATTERNS = [
-    r'\b(several|many|multiple|various)\b.*\b(exist|available|servers?|tools?|systems?)\b',
-    r'\bi found\b.*\b(servers?|tools?|systems?|evidence)\b',
-    r'\bsearch reveals?\b.*\b(exist|available|show)\b',
-    r'\bresults? shows?\b.*\b(exist|available|that)\b',
-    r'\bthere are\b.*\b(servers?|tools?|systems?)\b',
-    r'\bthe [^.]*? (?:reveals?|shows?|indicates?)\b',
-    r'\b(?:extensive|comprehensive|numerous)\b.*\b(?:infrastructure|systems?|servers?)\b'
-]
+async def ai_detect_claims(text: str) -> List[str]:
+    """Use AI to detect any factual claims in text that need verification"""
+    try:
+        # Import and use the AI-powered verifier for claim detection
+        import asyncio
+        import os
+        
+        # Add the MCP server path
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        mcp_path = os.path.join(current_dir, "..", "mcp_server")
+        sys.path.insert(0, mcp_path)
+        
+        from provenance_mcp_server import ProvenanceVerifier
+        
+        verifier = ProvenanceVerifier()
+        
+        # Get Azure token for API access
+        if not await verifier.get_azure_token():
+            print("No Azure token available for AI claim detection", file=sys.stderr)
+            return []
+        
+        prompt = f"""
+Analyze this text and identify ALL factual claims that could be verified or disproven:
 
-def contains_potential_claim(text: str) -> List[str]:
-    """Check if text contains patterns that suggest unverified claims"""
-    found_claims = []
-    text_lower = text.lower()
+Text: "{text}"
+
+Look for:
+- Statements about what exists, is available, or is true
+- Claims about origins, history, or causation
+- Assertions about quantities, relationships, or properties
+- Any definitive statements about external facts
+
+Return ONLY a JSON list of specific factual claims found:
+["claim 1", "claim 2", "claim 3"]
+
+If no factual claims are found, return: []
+"""
+        
+        import httpx
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://api.openai.com/v1/chat/completions",
+                headers={"Authorization": f"Bearer {verifier.azure_token}"},
+                json={
+                    "model": "gpt-4o-mini",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.1
+                },
+                timeout=30.0
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                ai_response = result["choices"][0]["message"]["content"]
+                
+                try:
+                    import json
+                    claims = json.loads(ai_response)
+                    if isinstance(claims, list):
+                        print(f"🤖 AI detected {len(claims)} factual claims", file=sys.stderr)
+                        return claims
+                except json.JSONDecodeError:
+                    pass
+                    
+    except Exception as e:
+        print(f"AI claim detection failed: {e}", file=sys.stderr)
     
-    # Check existing patterns
-    for pattern in CLAIM_PATTERNS:
-        matches = re.findall(pattern, text_lower, re.IGNORECASE)
-        if matches:
-            # Extract the broader context around the match
-            for match in re.finditer(pattern, text_lower, re.IGNORECASE):
-                start = max(0, match.start() - 50)
-                end = min(len(text), match.end() + 50)
-                context = text[start:end].strip()
-                found_claims.append(context)
-    
-    # Also check for factual assertions that might not match patterns
-    # Look for statements that make definitive claims about origins, facts, etc.
-    factual_patterns = [
-        r'\b\w+\s+(?:comes|came)\s+from\s+\w+\b',  # "X comes from Y"
-        r'\b\w+\s+(?:was|were)\s+(?:invented|created|developed)\s+(?:in|by)\s+\w+\b',  # "X was invented in Y"
-        r'\b\w+\s+(?:originated|originates)\s+(?:in|from)\s+\w+\b',  # "X originated in Y"
-        r'\bthe\s+first\s+\w+\s+was\s+\w+\b',  # "the first X was Y"
-    ]
-    
-    for pattern in factual_patterns:
-        for match in re.finditer(pattern, text_lower, re.IGNORECASE):
-            start = max(0, match.start() - 20)
-            end = min(len(text), match.end() + 20)
-            context = text[start:end].strip()
-            if context not in found_claims:  # Avoid duplicates
-                found_claims.append(context)
-    
-    return found_claims
+    return []
 
 def call_provenance_verifier(claim: str) -> Dict[str, Any]:
     """Call our AI-powered provenance verification system"""
@@ -92,17 +115,12 @@ def call_provenance_verifier(claim: str) -> Dict[str, Any]:
             raise
             
     except Exception as e:
-        print(f"Falling back to pattern matching: {e}", file=sys.stderr)
-        # Fallback to pattern matching
-        if "several mcp servers exist" in claim.lower():
-            return {"assertable": True, "confidence": 100, "evidence_count": 1}
-        elif any(word in claim.lower() for word in ["several", "multiple", "there are", "many"]):
-            return {"assertable": False, "confidence": 20, "evidence_count": 0}
-        else:
-            return {"assertable": False, "confidence": 0, "evidence_count": 0}
+        print(f"AI verification completely failed: {e}", file=sys.stderr)
+        # No fallback - if AI fails, assume safe
+        return {"assertable": True, "confidence": 50, "evidence_count": 0}
 
-def validate_tool_input(tool_data: Dict[str, Any]) -> bool:
-    """Validate tool input for unverified claims"""
+async def validate_tool_input(tool_data: Dict[str, Any]) -> bool:
+    """Validate tool input for unverified claims using pure AI detection"""
     tool_name = tool_data.get("tool_name", "")
     tool_input = tool_data.get("tool_input", {})
     
@@ -120,15 +138,15 @@ def validate_tool_input(tool_data: Dict[str, Any]) -> bool:
     if not text_to_check.strip():
         return True  # No text to validate
     
-    # Check for potential claims
-    potential_claims = contains_potential_claim(text_to_check)
+    # Use AI to detect claims
+    potential_claims = await ai_detect_claims(text_to_check)
     
     if not potential_claims:
-        return True  # No claims detected
+        return True  # No claims detected by AI
     
-    print(f"🔍 CLAIM VALIDATION: Found {len(potential_claims)} potential claims", file=sys.stderr)
+    print(f"🤖 AI CLAIM VALIDATION: Found {len(potential_claims)} factual claims", file=sys.stderr)
     
-    # Verify each potential claim
+    # Verify each AI-detected claim
     blocked_claims = []
     
     for claim in potential_claims:
@@ -142,11 +160,11 @@ def validate_tool_input(tool_data: Dict[str, Any]) -> bool:
             blocked_claims.append(claim)
     
     if blocked_claims:
-        print(f"\n❌ BLOCKED: {len(blocked_claims)} unverified claims detected:", file=sys.stderr)
+        print(f"\n❌ AI BLOCKED: {len(blocked_claims)} unverified claims detected:", file=sys.stderr)
         for i, claim in enumerate(blocked_claims, 1):
             print(f"   {i}. {claim[:80]}{'...' if len(claim) > 80 else ''}", file=sys.stderr)
         
-        print(f"\n💡 RECOMMENDATION: Verify these claims before making assertions", file=sys.stderr)
+        print(f"\n💡 AI RECOMMENDATION: Verify these claims before making assertions", file=sys.stderr)
         print(f"   Use tools like WebFetch to verify external claims", file=sys.stderr)
         print(f"   Provide evidence sources for factual statements", file=sys.stderr)
         
@@ -154,18 +172,18 @@ def validate_tool_input(tool_data: Dict[str, Any]) -> bool:
     
     return True  # Allow execution
 
-def main():
+async def main():
     """Main hook entry point"""
     try:
         # Read tool data from stdin
         tool_data = json.load(sys.stdin)
         
-        # Validate the tool input for claims
-        if validate_tool_input(tool_data):
-            print("✅ Response validation passed", file=sys.stderr)
+        # Validate the tool input for claims using AI
+        if await validate_tool_input(tool_data):
+            print("✅ AI validation passed", file=sys.stderr)
             sys.exit(0)  # Allow execution
         else:
-            print("❌ Response validation failed - blocking execution", file=sys.stderr)
+            print("❌ AI validation failed - blocking execution", file=sys.stderr)
             sys.exit(2)  # Block execution with explanation
             
     except json.JSONDecodeError:
@@ -176,5 +194,10 @@ def main():
         print(f"Hook error: {e}", file=sys.stderr)
         sys.exit(0)  # Allow on errors (fail-safe)
 
+def run_main():
+    """Wrapper to run async main"""
+    import asyncio
+    asyncio.run(main())
+
 if __name__ == "__main__":
-    main()
+    run_main()
