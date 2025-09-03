@@ -192,7 +192,7 @@ jobs:
           
       - name: Run performance benchmarks from existing tests
         run: |
-          python tests/assistant_integration/test_performance_benchmarks.py
+          python tests/assistant_integration/test_performance_benchmarks.py --assistant claude-code
           echo "Performance test completed - no specific benchmark files needed"
           
       - name: Upload benchmark results
