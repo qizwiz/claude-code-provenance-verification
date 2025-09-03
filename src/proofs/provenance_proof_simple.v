@@ -199,7 +199,7 @@ Proof.
   - intro H_exists.
     destruct H_exists as [evidence_chain [H_eq [H_nonempty [H_verified H_conf]]]].
     unfold assertable.
-    replace (evidence_db sys c) with evidence_chain by exact H_eq.
+    replace (evidence_db sys c) with evidence_chain by exact (eq_sym H_eq).
     apply andb_true_iff.
     split.
     { (* Has evidence *)
@@ -208,7 +208,7 @@ Proof.
     }
     { (* Sufficient evidence *)
       unfold sufficient_evidence.
-      replace (evidence_db sys c) with evidence_chain by exact H_eq.
+      replace (evidence_db sys c) with evidence_chain by exact (eq_sym H_eq).
       apply andb_true_iff.
       split.
       - exact H_verified.
