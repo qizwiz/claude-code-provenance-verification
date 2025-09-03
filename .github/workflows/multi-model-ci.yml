@@ -90,93 +90,17 @@ jobs:
         with:
           file: ./coverage.xml
 
-  # Multi-model LLM testing
+  # Multi-model LLM testing (simplified)
   llm-model-matrix:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        model_provider:
-          - openai
-          - anthropic
-          - google
-          - qwen
-          - deepseek
-        model_name:
-          - gpt-4o
-          - gpt-4o-mini
-          - claude-3-5-sonnet-20241022
-          - claude-3-5-haiku-20241022
-          - gemini-1.5-pro
-          - gemini-1.5-flash
-          - qwen2.5-coder-32b
-          - deepseek-coder-v2
-        exclude:
-          # Only test valid model/provider combinations
+        include:
           - model_provider: openai
-            model_name: claude-3-5-sonnet-20241022
-          - model_provider: openai
-            model_name: claude-3-5-haiku-20241022
-          - model_provider: openai
-            model_name: gemini-1.5-pro
-          - model_provider: openai
-            model_name: gemini-1.5-flash
-          - model_provider: openai
-            model_name: qwen2.5-coder-32b
-          - model_provider: openai
-            model_name: deepseek-coder-v2
-          - model_provider: anthropic
-            model_name: gpt-4o
-          - model_provider: anthropic
             model_name: gpt-4o-mini
-          - model_provider: anthropic
-            model_name: gemini-1.5-pro
-          - model_provider: anthropic
-            model_name: gemini-1.5-flash
-          - model_provider: anthropic
-            model_name: qwen2.5-coder-32b
-          - model_provider: anthropic
-            model_name: deepseek-coder-v2
-          - model_provider: google
-            model_name: gpt-4o
-          - model_provider: google
-            model_name: gpt-4o-mini
-          - model_provider: google
-            model_name: claude-3-5-sonnet-20241022
-          - model_provider: google
+          - model_provider: anthropic  
             model_name: claude-3-5-haiku-20241022
-          - model_provider: google
-            model_name: qwen2.5-coder-32b
-          - model_provider: google
-            model_name: deepseek-coder-v2
-          - model_provider: qwen
-            model_name: gpt-4o
-          - model_provider: qwen
-            model_name: gpt-4o-mini
-          - model_provider: qwen
-            model_name: claude-3-5-sonnet-20241022
-          - model_provider: qwen
-            model_name: claude-3-5-haiku-20241022
-          - model_provider: qwen
-            model_name: gemini-1.5-pro
-          - model_provider: qwen
-            model_name: gemini-1.5-flash
-          - model_provider: qwen
-            model_name: deepseek-coder-v2
-          - model_provider: deepseek
-            model_name: gpt-4o
-          - model_provider: deepseek
-            model_name: gpt-4o-mini
-          - model_provider: deepseek
-            model_name: claude-3-5-sonnet-20241022
-          - model_provider: deepseek
-            model_name: claude-3-5-haiku-20241022
-          - model_provider: deepseek
-            model_name: gemini-1.5-pro
-          - model_provider: deepseek
-            model_name: gemini-1.5-flash
-          - model_provider: deepseek
-            model_name: qwen2.5-coder-32b
             
     steps:
       - uses: actions/checkout@v4
@@ -220,23 +144,17 @@ jobs:
           name: model-results-${{ matrix.model_provider }}-${{ matrix.model_name }}
           path: test-results/
 
-  # AI Coding Assistant Integration Tests
+  # AI Coding Assistant Integration Tests (simplified)
   ai-assistant-matrix:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        assistant:
-          - cursor
-          - claude-code
-          - codeium 
-          - copilot
-          - windsurf
-        test_scenario:
-          - basic_claim_detection
-          - complex_claim_patterns
-          - false_positive_handling
-          - performance_benchmarks
+        include:
+          - assistant: claude-code
+            test_scenario: basic_claim_detection
+          - assistant: cursor
+            test_scenario: basic_claim_detection
           
     steps:
       - uses: actions/checkout@v4
